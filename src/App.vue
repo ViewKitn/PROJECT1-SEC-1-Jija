@@ -95,8 +95,6 @@ const randomChoice = (arr) => {
     arr.splice(index, 1);
   }
 };
-randomChoice(animalList);
-console.log(choiceList);
 </script>
 
 <template>
