@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "vue";
 const animalList = [
   "monkey",
   "shark",
@@ -87,23 +88,45 @@ const homeEquipmentList = [
   "griddle",
   "toothbrush",
 ];
-const choiceList = [];
+const choiceList = ref([]);
+let answer = ref("");
+const answerList = [];
 const randomChoice = (arr) => {
-  for (let i = 0; i < 5; i++) {
+  let count = 0;
+  while (count < 5) {
     const index = Math.floor(Math.random() * arr.length);
-    choiceList.push(arr[index]);
-    arr.splice(index, 1);
+    const randChoice = arr[index];
+    if (!answerList.includes(randChoice) && !choiceList.value.includes(randChoice)) {
+      choiceList.value.push(randChoice);
+      count++;
+    }
   }
 };
 const randomAnswer = () => {
-  const index = Math.floor(Math.random() * choiceList.length);
-  return choiceList[index];
+  while (true) {
+    const index = Math.floor(Math.random() * choiceList.value.length);
+    answer.value = choiceList.value[index];
+    if (!answerList.includes(answer.value)) {
+      answerList.push(answer.value);
+      break;
+    }
+  }
 };
-console.log(animalList)
-animalList.splice(0,1)
-console.log(animalList)
-animalList.splice(0,1)
-console.log(animalList)
+
+const nextRound = (category) => {
+  choiceList.value.splice(0);
+  if (category === "animal") {
+    randomChoice(animalList);
+  } else if (category === "fruit") {
+    randomChoice(fruitListList);
+  } else if (category === "country") {
+    randomChoice(countryListList);
+  } else if (category === "equipment") {
+    randomChoice(homeEquipmenList);
+  }
+  randomAnswer();
+};
+
 </script>
 
 <template>
@@ -116,6 +139,24 @@ console.log(animalList)
     </section>
     <section class="playgame-page">
       <!-- code here -->
+      <div class="playgame-container">
+        <button @click="gameStart('animal')" class="px-6 py-5 bg-green-400">
+          Start Game
+        </button>
+        <h1 class="answer text-4xl">
+          Answer: <span class="text-red-500">{{ answer }}</span>
+        </h1>
+        <div class="choice-list">
+          <button
+            v-for="(choice, index) in choiceList"
+            :key="index"
+            @click="nextRound('animal')"
+            class="my-3 mx-5 py-3 px-5 bg-orange-400 text-2xl"
+          >
+            {{ choice }}
+          </button>
+        </div>
+      </div>
     </section>
     <section class="score-page">
       <!-- code here -->
