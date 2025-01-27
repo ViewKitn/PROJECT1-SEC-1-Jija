@@ -90,11 +90,20 @@ const homeEquipmentList = [
 const choiceList = [];
 const randomChoice = (arr) => {
   for (let i = 0; i < 5; i++) {
-    let index = Math.floor(Math.random() * arr.length);
+    const index = Math.floor(Math.random() * arr.length);
     choiceList.push(arr[index]);
     arr.splice(index, 1);
   }
 };
+const randomAnswer = () => {
+  const index = Math.floor(Math.random() * choiceList.length);
+  return choiceList[index];
+};
+console.log(animalList)
+animalList.splice(0,1)
+console.log(animalList)
+animalList.splice(0,1)
+console.log(animalList)
 </script>
 
 <template>
