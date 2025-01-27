@@ -113,6 +113,19 @@ const randomAnswer = () => {
   }
 };
 
+const gameStart = (category) => {
+  if (category === "animal") {
+    randomChoice(animalList);
+  } else if (category === "fruit") {
+    randomChoice(fruitListList);
+  } else if (category === "country") {
+    randomChoice(countryListList);
+  } else if (category === "equipment") {
+    randomChoice(homeEquipmenList);
+  }
+  randomAnswer();
+};
+
 const nextRound = (category) => {
   choiceList.value.splice(0);
   if (category === "animal") {
@@ -127,6 +140,12 @@ const nextRound = (category) => {
   randomAnswer();
 };
 
+
+const clearGame = () => {
+  choiceList.value.splice(0);
+  answerList.splice(0);
+  answer.value = "";
+};
 </script>
 
 <template>
