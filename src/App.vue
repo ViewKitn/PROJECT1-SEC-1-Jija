@@ -96,7 +96,10 @@ const randomChoice = (arr) => {
   while (count < 5) {
     const index = Math.floor(Math.random() * arr.length);
     const randChoice = arr[index];
-    if (!answerList.includes(randChoice) && !choiceList.value.includes(randChoice)) {
+    if (
+      !answerList.includes(randChoice) &&
+      !choiceList.value.includes(randChoice)
+    ) {
       choiceList.value.push(randChoice);
       count++;
     }
@@ -112,7 +115,12 @@ const randomAnswer = () => {
     }
   }
 };
-
+const checkAnswer = (index) => {
+  if (answer.value === choiceList.value[index]) {
+    return true;
+  }
+  return false;
+};
 const gameStart = (category) => {
   if (category === "animal") {
     randomChoice(animalList);
@@ -126,7 +134,8 @@ const gameStart = (category) => {
   randomAnswer();
 };
 
-const nextRound = (category) => {
+const nextRound = (category, index) => {
+  console.log(checkAnswer(index));
   choiceList.value.splice(0);
   if (category === "animal") {
     randomChoice(animalList);
@@ -139,7 +148,6 @@ const nextRound = (category) => {
   }
   randomAnswer();
 };
-
 
 const clearGame = () => {
   choiceList.value.splice(0);
@@ -169,7 +177,7 @@ const clearGame = () => {
           <button
             v-for="(choice, index) in choiceList"
             :key="index"
-            @click="nextRound('animal')"
+            @click="nextRound('animal', index)"
             class="my-3 mx-5 py-3 px-5 bg-orange-400 text-2xl"
           >
             {{ choice }}
