@@ -42,7 +42,7 @@ const fruitList = [
   "starfruit",
   "strawberry",
   "watermelon",
-  "papaya",
+  "avocado",
 ];
 const countryList = [
   "argentina",
@@ -121,15 +121,29 @@ const checkAnswer = (index) => {
   }
   return false;
 };
+const getColorButton = (index) => {
+  switch (index) {
+    case 0:
+      return "hover:bg-red-500";
+    case 1:
+      return "hover:bg-blue-500 ";
+    case 2:
+      return "hover:bg-green-500";
+    case 3:
+      return "hover:bg-yellow-400";
+    case 4:
+      return "hover:bg-pink-400";
+  }
+};
 const gameStart = (category) => {
   if (category === "animal") {
     randomChoice(animalList);
   } else if (category === "fruit") {
-    randomChoice(fruitListList);
+    randomChoice(fruitList);
   } else if (category === "country") {
-    randomChoice(countryListList);
+    randomChoice(countryList);
   } else if (category === "equipment") {
-    randomChoice(homeEquipmenList);
+    randomChoice(homeEquipmentList);
   }
   randomAnswer();
 };
@@ -140,11 +154,11 @@ const nextRound = (category, index) => {
   if (category === "animal") {
     randomChoice(animalList);
   } else if (category === "fruit") {
-    randomChoice(fruitListList);
+    randomChoice(fruitList);
   } else if (category === "country") {
-    randomChoice(countryListList);
+    randomChoice(countryList);
   } else if (category === "equipment") {
-    randomChoice(homeEquipmenList);
+    randomChoice(homeEquipmentList);
   }
   randomAnswer();
 };
@@ -170,15 +184,24 @@ const clearGame = () => {
         <button @click="gameStart('animal')" class="px-6 py-5 bg-green-400">
           Start Game
         </button>
-        <h1 class="answer text-4xl">
+        <h1 class="answer text-4xl text-center">
           Answer: <span class="text-red-500">{{ answer }}</span>
         </h1>
-        <div class="choice-list">
+        <div class="img-answer my-5">
+          <img
+            :src="`../imgs/animals/${answer}.jpg`"
+            :alt="`img-${answer}`"
+            class="w-lg h-80 object-cover mx-auto border-[1px]"
+          />
+        </div>
+        <h1 class="question text-5xl text-center my-5">What is animal ?</h1>
+        <div class="choice-list flex justify-around">
           <button
             v-for="(choice, index) in choiceList"
             :key="index"
             @click="nextRound('animal', index)"
-            class="my-3 mx-5 py-3 px-5 bg-orange-400 text-2xl"
+            class="w-52 h-full my-3 mx-5 py-2 rounded-4xl bg-zinc-100 text-2xl duration-200 ease-in-out hover:scale-125 hover:text-white"
+            :class="getColorButton(index)"
           >
             {{ choice }}
           </button>
