@@ -91,6 +91,7 @@ const homeEquipmentList = [
 const choiceList = ref([]);
 let answer = ref("");
 const answerList = [];
+let score = ref(0);
 const randomChoice = (arr) => {
   let count = 0;
   while (count < 5) {
@@ -115,8 +116,18 @@ const randomAnswer = () => {
     }
   }
 };
+const addScore = () => {
+  score.value += 1;
+};
+const resetScore = () => {
+  score.value = 0;
+};
+
+
 const checkAnswer = (index) => {
   if (answer.value === choiceList.value[index]) {
+    addScore();
+    console.log(score.value)
     return true;
   }
   return false;
@@ -164,6 +175,7 @@ const nextRound = (category, index) => {
 };
 
 const clearGame = () => {
+  resetScore();
   choiceList.value.splice(0);
   answerList.splice(0);
   answer.value = "";
