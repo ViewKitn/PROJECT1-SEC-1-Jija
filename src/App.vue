@@ -89,11 +89,12 @@ const homeEquipmentList = [
   "toothbrush",
 ];
 const choiceList = ref([]);
-let answer = ref("");
 const answerList = [];
+let answer = ref("");
 let score = ref(0);
 let round = ref(0);
 
+// feature score
 const addScore = () => {
   score.value += 1;
 };
@@ -101,13 +102,16 @@ const resetScore = () => {
   score.value = 0;
 };
 
+// feature round
 const increaseRound = () => {
   round.value++;
 };
+
 const resetRound = () => {
   round.value = 0;
 };
 
+// feature choice
 const randomChoice = (arr) => {
   let count = 0;
   while (count < 5) {
@@ -127,6 +131,7 @@ const resetChoiceList = () => {
   choiceList.value.splice(0);
 };
 
+// feature answer
 const randomAnswer = () => {
   while (true) {
     const index = Math.floor(Math.random() * choiceList.value.length);
@@ -138,8 +143,8 @@ const randomAnswer = () => {
   }
 };
 
-const checkAnswer = (index) => {
-  if (answer.value === choiceList.value[index]) {
+const checkAnswer = (userSelect) => {
+  if (answer.value === choiceList.value[userSelect]) {
     addScore();
     console.log(score.value);
     return true;
@@ -151,12 +156,17 @@ const resetAnswerList = () => {
   answerList.splice(0);
 };
 
-const getColorButton = (index) => {
-  switch (index) {
+const resetAnswer = () => {
+  answer.value = "";
+};
+
+// feature other
+const getColorButton = (btnIndex) => {
+  switch (btnIndex) {
     case 0:
       return "hover:bg-red-500";
     case 1:
-      return "hover:bg-blue-500 ";
+      return "hover:bg-blue-500";
     case 2:
       return "hover:bg-green-500";
     case 3:
@@ -200,29 +210,33 @@ const clearGame = () => {
   resetScore();
   resetChoiceList();
   resetAnswerList();
+  resetAnswer();
   resetRound();
-  answer.value = "";
 };
 </script>
 
 <template>
   <div class="game-container">
+    <!-- home page -->
     <section class="home-page">
       <!-- code here -->
     </section>
+
+    <!-- category page -->
     <section class="category-page">
       <!-- code here -->
     </section>
+
+    <!-- play game page -->
     <section v-if="round <= 15" class="playgame-page">
       <!-- code here -->
       <div class="playgame-container border-b-2">
-        <header class=" flex justify-between">
+        <header class="flex justify-between">
           <button @click="gameStart('animal')" class="px-6 py-5 bg-green-400">
             Start Game
           </button>
           <h1 class="mx-8 text-2xl">{{ round }} / 15</h1>
         </header>
-
         <h1 class="answer text-4xl text-center">
           Answer: <span class="text-red-500">{{ answer }}</span>
         </h1>
@@ -239,8 +253,7 @@ const clearGame = () => {
             v-for="(choice, index) in choiceList"
             :key="index"
             @click="nextRound('animal', index)"
-            class="w-52 h-full my-3 mx-5 py-2 round
-            ed-4xl bg-zinc-100 text-2xl duration-200 ease-in-out hover:scale-125 hover:text-white"
+            class="w-52 h-full my-3 mx-5 py-2 round ed-4xl bg-zinc-100 text-2xl duration-200 ease-in-out hover:scale-125 hover:text-white"
             :class="getColorButton(index)"
           >
             {{ choice }}
@@ -248,15 +261,33 @@ const clearGame = () => {
         </div>
       </div>
     </section>
+
+    <!-- score page -->
     <section class="score-page">
-      <div class="score-contain text-4xl text-center my-20 bg-orange-200 h-100">
-        <h1 class="py-16 text-blue-700 font-bold [font-family:'Lucida_Console',monospace]">YOUR SCORE</h1>
+      <div
+        class="score-container text-4xl text-center my-20 bg-orange-200 h-100"
+      >
+        <h1
+          class="py-16 text-blue-700 font-bold [font-family:'Lucida_Console',monospace]"
+        >
+          YOUR SCORE
+        </h1>
         <div class="show-user-score my">
           <span class="px-30 py-8 bg-gray-100">{{ score }}</span>
         </div>
         <div class="py-20 flex justify-center gap-30">
-          <button @click="clearGame()" class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"> HOME </button>
-          <button @click="gameStart()" class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"> PLAY AGAIN </button>
+          <button
+            @click="clearGame()"
+            class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
+          >
+            HOME
+          </button>
+          <button
+            @click="gameStart()"
+            class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
+          >
+            PLAY AGAIN
+          </button>
         </div>
       </div>
     </section>
