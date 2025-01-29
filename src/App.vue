@@ -92,6 +92,21 @@ const choiceList = ref([]);
 let answer = ref("");
 const answerList = [];
 let score = ref(0);
+let round = ref(0);
+
+const addScore = () => {
+  score.value += 1;
+};
+const resetScore = () => {
+  score.value = 0;
+};
+
+const increaseRound = () => {
+  round.value++;
+};
+const resetRound = () => {
+  round.value = 0;
+};
 
 const randomChoice = (arr) => {
   let count = 0;
@@ -107,6 +122,11 @@ const randomChoice = (arr) => {
     }
   }
 };
+
+const resetChoiceList = () => {
+  choiceList.value.splice(0);
+};
+
 const randomAnswer = () => {
   while (true) {
     const index = Math.floor(Math.random() * choiceList.value.length);
@@ -118,18 +138,6 @@ const randomAnswer = () => {
   }
 };
 
-const addScore = () => {
-  score.value += 1;
-};
-const resetScore = () => {
-  score.value = 0;
-};
-const resetChoiceList = () => {
-  choiceList.value.splice(0);
-};
-const resetAnswerList = () => {
-  answerList.splice(0);
-};
 const checkAnswer = (index) => {
   if (answer.value === choiceList.value[index]) {
     addScore();
@@ -138,6 +146,11 @@ const checkAnswer = (index) => {
   }
   return false;
 };
+
+const resetAnswerList = () => {
+  answerList.splice(0);
+};
+
 const getColorButton = (index) => {
   switch (index) {
     case 0:
@@ -152,7 +165,9 @@ const getColorButton = (index) => {
       return "hover:bg-pink-400";
   }
 };
+
 const gameStart = (category) => {
+  increaseRound();
   if (category === "animal") {
     randomChoice(animalList);
   } else if (category === "fruit") {
@@ -166,8 +181,9 @@ const gameStart = (category) => {
 };
 
 const nextRound = (category, index) => {
+  increaseRound();
   console.log(checkAnswer(index));
-  resetChoice();
+  resetChoiceList();
   if (category === "animal") {
     randomChoice(animalList);
   } else if (category === "fruit") {
@@ -184,6 +200,7 @@ const clearGame = () => {
   resetScore();
   resetChoiceList();
   resetAnswerList();
+  resetRound();
   answer.value = "";
 };
 </script>
@@ -196,12 +213,16 @@ const clearGame = () => {
     <section class="category-page">
       <!-- code here -->
     </section>
-    <section class="playgame-page">
+    <section v-if="round <= 15" class="playgame-page">
       <!-- code here -->
-      <div class="playgame-container">
-        <button @click="gameStart('animal')" class="px-6 py-5 bg-green-400">
-          Start Game
-        </button>
+      <div class="playgame-container border-b-2">
+        <header class=" flex justify-between">
+          <button @click="gameStart('animal')" class="px-6 py-5 bg-green-400">
+            Start Game
+          </button>
+          <h1 class="mx-8 text-2xl">{{ round }} / 15</h1>
+        </header>
+
         <h1 class="answer text-4xl text-center">
           Answer: <span class="text-red-500">{{ answer }}</span>
         </h1>
@@ -218,7 +239,7 @@ const clearGame = () => {
             v-for="(choice, index) in choiceList"
             :key="index"
             @click="nextRound('animal', index)"
-            class="w-52 h-full my-3 mx-5 py-2 rounded-4xl bg-zinc-100 text-2xl duration-200 ease-in-out hover:scale-125 hover:text-white"
+            class="w-52 h-full my-3 mx-5 py-2 rounded-4xl bg-zinc-100 text-2xl duration-200 ease-in-out hover:scale-125 hover:text-white hover:cursor-pointer"
             :class="getColorButton(index)"
           >
             {{ choice }}
