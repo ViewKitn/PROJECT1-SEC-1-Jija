@@ -239,7 +239,8 @@ const clearGame = () => {
             v-for="(choice, index) in choiceList"
             :key="index"
             @click="nextRound('animal', index)"
-            class="w-52 h-full my-3 mx-5 py-2 rounded-4xl bg-zinc-100 text-2xl duration-200 ease-in-out hover:scale-125 hover:text-white hover:cursor-pointer"
+            class="w-52 h-full my-3 mx-5 py-2 round
+            ed-4xl bg-zinc-100 text-2xl duration-200 ease-in-out hover:scale-125 hover:text-white"
             :class="getColorButton(index)"
           >
             {{ choice }}
@@ -248,7 +249,16 @@ const clearGame = () => {
       </div>
     </section>
     <section class="score-page">
-      <!-- code here -->
+      <div class="score-contain text-4xl text-center my-20 bg-orange-200 h-100">
+        <h1 class="py-16 text-blue-700 font-bold [font-family:'Lucida_Console',monospace]">YOUR SCORE</h1>
+        <div class="show-user-score my">
+          <span class="px-30 py-8 bg-gray-100">{{ score }}</span>
+        </div>
+        <div class="py-20 flex justify-center gap-30">
+          <button @click="clearGame()" class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"> HOME </button>
+          <button @click="gameStart()" class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"> PLAY AGAIN </button>
+        </div>
+      </div>
     </section>
   </div>
 </template>
