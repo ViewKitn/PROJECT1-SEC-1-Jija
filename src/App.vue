@@ -93,6 +93,7 @@ const answerList = [];
 let answer = ref("");
 let score = ref(0);
 let round = ref(0);
+let page = ref("home");
 
 // feature score
 const addScore = () => {
@@ -218,17 +219,29 @@ const clearGame = () => {
 <template>
   <div class="game-container">
     <!-- home page -->
-    <section class="home-page">
+    <section class="home-page" v-show="page === 'home'">
       <!-- code here -->
+      <h1>Home page</h1>
+      <button
+        class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
+      @click="page='category'">
+        Play
+      </button>
     </section>
 
     <!-- category page -->
-    <section class="category-page">
+    <section class="category-page" v-show="page === 'category'">
       <!-- code here -->
+      <h1>Category</h1>
+      <button
+        class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
+        @click="page='play'">
+        Play
+      </button>
     </section>
 
     <!-- play game page -->
-    <section v-if="round <= 15" class="playgame-page">
+    <section v-if="round <= 15" class="playgame-page" v-show="page === 'play'">
       <!-- code here -->
       <div class="playgame-container border-b-2">
         <header class="flex justify-between">
@@ -263,27 +276,25 @@ const clearGame = () => {
     </section>
 
     <!-- score page -->
-    <section class="score-page">
-      <div
-        class="score-container text-4xl text-center my-20 bg-orange-200 h-100"
-      >
+    <section class="score-page" v-show="page === 'score' || round === 16">
+      <div class="score-container text-4xl text-center bg-orange-200 h-100">
         <h1
           class="py-16 text-blue-700 font-bold [font-family:'Lucida_Console',monospace]"
         >
           YOUR SCORE
         </h1>
         <div class="show-user-score my">
-          <span class="px-30 py-8 bg-gray-100">{{ score }}</span>
+          <span class="px-30 py-8 bg-gray-100">{{ score }}/15</span>
         </div>
         <div class="py-20 flex justify-center gap-30">
           <button
-            @click="clearGame()"
+            @click="clearGame(), page = 'home'"
             class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
           >
             HOME
           </button>
           <button
-            @click="gameStart()"
+            @click="clearGame(),gameStart('animal') ,page = 'play'"
             class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
           >
             PLAY AGAIN
