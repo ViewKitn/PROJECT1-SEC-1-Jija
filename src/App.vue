@@ -93,6 +93,7 @@ const answerList = [];
 let answer = ref("");
 let score = ref(0);
 let round = ref(0);
+let page = ref("home");
 
 // feature score
 const addScore = () => {
@@ -218,84 +219,111 @@ const clearGame = () => {
 <template>
   <div class="game-container">
     <!-- home page -->
-    <section class="home-page">
+    <section class="home-page" v-show="page === 'home'">
       <!-- code here -->
+      <h1>Home page</h1>
+      <button
+        class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
+        @click="page = 'category'"
+      >
+        Play
+      </button>
     </section>
 
     <!-- category page -->
-     <!-- category page -->
-     <section class="category-page">
+    <section class="category-page" v-show="page==='category'">
       <!-- code here -->
-     
-      <div id="app" class="flex flex-col items-center min-h-screen bg-gray-100 p-4">
-        <h1 class="text-5xl font-bold text-orange-500 shadow-lg mb-8">Category</h1>
-       <div class="grid grid-cols-2 gap-4 w-full max-w-4xl">
+      <button @click="gameStart('animal'),page='play'" class="px-6 py-5 bg-green-400">
+            Start Game
+          </button>
+      <div
+        id="app"
+        class="flex flex-col items-center min-h-screen bg-gray-100 p-4"
+      >
+        <h1 class="text-5xl font-bold text-orange-500 shadow-lg mb-8">
+          Category
+        </h1>
+        <div class="grid grid-cols-2 gap-4 w-full max-w-4xl">
+          <div class="category-box p-4">
+            <label class="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                v-model="selectedCategory"
+                value="Animals"
+                :disabled="isDisabled"
+                class="form-radio text-orange-500"
+              />
+              <span class="text-lg">Animals</span>
+            </label>
+          </div>
 
-      <div class="category-box p-4">
-        <label class="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" v-model="selectedCategory" value="Animals" :disabled="isDisabled" 
-          class="form-radio text-orange-500"/>
-          <span class="text-lg">Animals</span>
-        </label>
+          <div class="category-box p-4">
+            <label class="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                v-model="selectedCategory"
+                value="Foods"
+                :disabled="isDisabled"
+                class="form-radio text-orange-500"
+              />
+              <span class="text-lg">Foods</span>
+            </label>
+          </div>
+
+          <div class="category-box p-4">
+            <label class="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                v-model="selectedCategory"
+                value="Objects"
+                :disabled="isDisabled"
+                class="form-radio text-orange-500"
+              />
+              <span class="text-lg">Objects</span>
+            </label>
+          </div>
+
+          <div class="category-box p-4">
+            <label class="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                v-model="selectedCategory"
+                value="Places"
+                :disabled="isDisabled"
+                class="form-radio text-orange-500"
+              />
+              <span class="text-lg">Places</span>
+            </label>
+          </div>
+        </div>
+
+        <div v-if="selectedCategory === 'Animals'" class="mt-8">
+          <h2 class="text-2xl font-bold text-gray-800">Category: Animals</h2>
+          <!-- เว้นที่ใส่รูป -->
+        </div>
+
+        <div v-if="selectedCategory === 'Objects'" class="mt-8">
+          <h2 class="text-2xl font-bold text-gray-800">Category: Objects</h2>
+          <!-- รูป -->
+        </div>
+
+        <div v-if="selectedCategory === 'Foods'" class="mt-8">
+          <h2 class="text-2xl font-bold text-gray-800">Category: Foods</h2>
+          <!-- รูป -->
+        </div>
+
+        <div v-if="selectedCategory === 'Places'" class="mt-8">
+          <h2 class="text-2xl font-bold text-gray-800">Category: Places</h2>
+          <!-- รูป -->
+        </div>
       </div>
-
-      <div class="category-box p-4">
-        <label class="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" v-model="selectedCategory" value="Foods" :disabled="isDisabled"
-           class="form-radio text-orange-500"/>
-          <span class="text-lg">Foods</span>
-        </label>
-      </div>
-
-      <div class="category-box p-4">
-        <label class="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" v-model="selectedCategory" value="Objects" :disabled="isDisabled" 
-          class="form-radio text-orange-500"/>
-          <span class="text-lg">Objects</span>
-        </label>
-      </div>
-
-      <div class="category-box p-4">
-        <label class="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" v-model="selectedCategory" value="Places" :disabled="isDisabled" 
-          class="form-radio text-orange-500"/>
-          <span class="text-lg">Places</span>
-        </label>
-      </div>
-    </div>
-
-    <div v-if="selectedCategory === 'Animals'" class="mt-8">
-      <h2 class="text-2xl font-bold text-gray-800">Category: Animals</h2>
-      <!-- เว้นที่ใส่รูป -->
-    </div>
-   
-    <div v-if="selectedCategory === 'Objects'" class="mt-8">
-      <h2 class="text-2xl font-bold text-gray-800">Category: Objects</h2>
-      <!-- รูป -->
-    </div>
-   
-    <div v-if="selectedCategory === 'Foods'" class="mt-8">
-      <h2 class="text-2xl font-bold text-gray-800">Category: Foods</h2>
-      <!-- รูป -->
-    </div>
-   
-    <div v-if="selectedCategory === 'Places'" class="mt-8">
-      <h2 class="text-2xl font-bold text-gray-800">Category: Places</h2>
-      <!-- รูป -->
-    </div>
-  </div>
-
-
     </section>
 
     <!-- play game page -->
-    <section v-if="round <= 15" class="playgame-page">
+    <section v-if="round <= 15" class="playgame-page" v-show="page === 'play'">
       <!-- code here -->
       <div class="playgame-container border-b-2">
         <header class="flex justify-between">
-          <button @click="gameStart('animal')" class="px-6 py-5 bg-green-400">
-            Start Game
-          </button>
           <h1 class="mx-8 text-2xl">{{ round }} / 15</h1>
         </header>
         <h1 class="answer text-4xl text-center">
@@ -324,27 +352,25 @@ const clearGame = () => {
     </section>
 
     <!-- score page -->
-    <section class="score-page">
-      <div
-        class="score-container text-4xl text-center my-20 bg-orange-200 h-100"
-      >
+    <section class="score-page" v-show="page === 'score' || round === 16">
+      <div class="score-container text-4xl text-center bg-orange-200 h-100">
         <h1
           class="py-16 text-blue-700 font-bold [font-family:'Lucida_Console',monospace]"
         >
           YOUR SCORE
         </h1>
         <div class="show-user-score my">
-          <span class="px-30 py-8 bg-gray-100">{{ score }}</span>
+          <span class="px-30 py-8 bg-gray-100">{{ score }}/15</span>
         </div>
         <div class="py-20 flex justify-center gap-30">
           <button
-            @click="clearGame()"
+            @click="clearGame(), (page = 'home')"
             class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
           >
             HOME
           </button>
           <button
-            @click="gameStart()"
+            @click="clearGame(), gameStart('animal'), (page = 'play')"
             class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
           >
             PLAY AGAIN
