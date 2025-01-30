@@ -223,8 +223,69 @@ const clearGame = () => {
     </section>
 
     <!-- category page -->
-    <section class="category-page">
+     <!-- category page -->
+     <section class="category-page">
       <!-- code here -->
+     
+      <div id="app" class="flex flex-col items-center min-h-screen bg-gray-100 p-4">
+        <h1 class="text-5xl font-bold text-orange-500 shadow-lg mb-8">Category</h1>
+       <div class="grid grid-cols-2 gap-4 w-full max-w-4xl">
+
+      <div class="category-box p-4">
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="radio" v-model="selectedCategory" value="Animals" :disabled="isDisabled" 
+          class="form-radio text-orange-500"/>
+          <span class="text-lg">Animals</span>
+        </label>
+      </div>
+
+      <div class="category-box p-4">
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="radio" v-model="selectedCategory" value="Foods" :disabled="isDisabled"
+           class="form-radio text-orange-500"/>
+          <span class="text-lg">Foods</span>
+        </label>
+      </div>
+
+      <div class="category-box p-4">
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="radio" v-model="selectedCategory" value="Objects" :disabled="isDisabled" 
+          class="form-radio text-orange-500"/>
+          <span class="text-lg">Objects</span>
+        </label>
+      </div>
+
+      <div class="category-box p-4">
+        <label class="flex items-center space-x-2 cursor-pointer">
+          <input type="radio" v-model="selectedCategory" value="Places" :disabled="isDisabled" 
+          class="form-radio text-orange-500"/>
+          <span class="text-lg">Places</span>
+        </label>
+      </div>
+    </div>
+
+    <div v-if="selectedCategory === 'Animals'" class="mt-8">
+      <h2 class="text-2xl font-bold text-gray-800">Category: Animals</h2>
+      <!-- เว้นที่ใส่รูป -->
+    </div>
+   
+    <div v-if="selectedCategory === 'Objects'" class="mt-8">
+      <h2 class="text-2xl font-bold text-gray-800">Category: Objects</h2>
+      <!-- รูป -->
+    </div>
+   
+    <div v-if="selectedCategory === 'Foods'" class="mt-8">
+      <h2 class="text-2xl font-bold text-gray-800">Category: Foods</h2>
+      <!-- รูป -->
+    </div>
+   
+    <div v-if="selectedCategory === 'Places'" class="mt-8">
+      <h2 class="text-2xl font-bold text-gray-800">Category: Places</h2>
+      <!-- รูป -->
+    </div>
+  </div>
+
+
     </section>
 
     <!-- play game page -->
