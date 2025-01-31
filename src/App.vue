@@ -219,23 +219,36 @@ const clearGame = () => {
 <template>
   <div class="game-container">
     <!-- home page -->
-    <section class="home-page" v-show="page === 'home'">
+    <section
+      class="home-page h-screen flex flex-col place-items: center justify-center bg-linear-to-r from-fuchsia-400 to-blue-800"
+      v-show="page === 'home'"
+    >
       <!-- code here -->
-      <h1>Home page</h1>
-      <button
-        class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
-        @click="page = 'category'"
-      >
-        Play
-      </button>
+      <div class="text-center">
+        <h1 class="text-6xl font-bold mb-6 drop-shadow-lg text-white">
+          Welcome to the Game!
+        </h1>
+        <p class="text-xl mb-8 opacity-90 text-white">
+          What is it? Let's take a guess!😘
+        </p>
+        <button
+          class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-green-500 disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-emerald-500 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-lg px-4 md:px-8 h-14 font-bold mb-6 drop-shadow-lg uppercase"
+          @click="page = 'category'"
+        >
+          Play
+        </button>
+      </div>
     </section>
 
     <!-- category page -->
-    <section class="category-page" v-show="page==='category'">
+    <section class="category-page" v-show="page === 'category'">
       <!-- code here -->
-      <button @click="gameStart('animal'),page='play'" class="px-6 py-5 bg-green-400">
-            Start Game
-          </button>
+      <button
+        @click="gameStart('animal'), (page = 'play')"
+        class="px-6 py-5 bg-green-400"
+      >
+        Start Game
+      </button>
       <div
         id="app"
         class="flex flex-col items-center min-h-screen bg-gray-100 p-4"
