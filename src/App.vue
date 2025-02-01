@@ -415,7 +415,7 @@ const showtext = () => {
 </template>
 
 <style scoped>
-.background-video {
+  .background-video {
   pointer-events: none;
-}
+  }
 </style>
