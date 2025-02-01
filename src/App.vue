@@ -215,7 +215,7 @@ const clearGame = () => {
   resetRound();
 };
 
-//add by BPAVEE
+
 const showtext = () => {
   if (score.value === 15) {
     return "Excellent!!!"
@@ -382,9 +382,6 @@ const showtext = () => {
 
     <!-- score page -->
     <section class="score-page h-screen bg-linear-to-r from-blue-500 to-pink-500 flex justify-center items-center h-screen" v-show="page === 'score' || round === 16">
-      <video autoplay muted loop class="background-video absolute inset-0 w-full h-full object-cover mix-blend-screen">
-        <source src="../public/video/Sequence01.webm" type="video/webm">
-      </video>
       <div class="score-container text-4xl text-center">
         <h1 class="text-white text-9xl ">{{ showtext() }}</h1>
         <h1
@@ -408,6 +405,9 @@ const showtext = () => {
           >
             PLAY AGAIN
           </button>
+          <video autoplay muted loop class="background-video absolute inset-0 w-full h-full object-cover mix-blend-screen">
+            <source src="/video/Sequence01.webm" type="video/webm">
+          </video>
         </div>
       </div>
     </section>
@@ -415,4 +415,7 @@ const showtext = () => {
 </template>
 
 <style scoped>
+  .background-video {
+  pointer-events: none;
+  }
 </style>
