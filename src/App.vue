@@ -214,6 +214,22 @@ const clearGame = () => {
   resetAnswer();
   resetRound();
 };
+
+//add by BPAVEE
+const showtext = () => {
+  if (score.value === 15) {
+    return "Excellent!!!"
+  }else if (score.value >= 12){
+    return "Perfect!!"
+  }else if (score.value >= 9){
+    return "Great job!"
+  }else if(score.value>= 5){
+    return "Good"
+  }else{
+    return "Not bad"
+  }
+}
+
 </script>
 
 <template>
@@ -365,17 +381,21 @@ const clearGame = () => {
     </section>
 
     <!-- score page -->
-    <section class="score-page" v-show="page === 'score' || round === 16">
-      <div class="score-container text-4xl text-center bg-orange-200 h-100">
+    <section class="score-page h-screen bg-linear-to-r from-blue-500 to-pink-500 flex justify-center items-center h-screen" v-show="page === 'score' || round === 16">
+      <video autoplay muted loop class="background-video absolute inset-0 w-full h-full object-cover mix-blend-screen">
+        <source src="../public/video/Sequence01.webm" type="video/webm">
+      </video>
+      <div class="score-container text-4xl text-center">
+        <h1 class="text-white text-9xl ">{{ showtext() }}</h1>
         <h1
           class="py-16 text-blue-700 font-bold [font-family:'Lucida_Console',monospace]"
         >
           YOUR SCORE
         </h1>
         <div class="show-user-score my">
-          <span class="px-30 py-8 bg-gray-100">{{ score }}/15</span>
+          <span class="rounded-3xl px-50 py-8 bg-gray-100">{{ score }}/15</span>
         </div>
-        <div class="py-20 flex justify-center gap-30">
+        <div class="py-40 flex justify-center gap-30">
           <button
             @click="clearGame(), (page = 'home')"
             class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
@@ -394,4 +414,5 @@ const clearGame = () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
