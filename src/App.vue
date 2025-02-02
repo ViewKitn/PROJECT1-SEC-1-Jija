@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref,watch } from "vue";
 const animalList = [
   "monkey",
   "shark",
