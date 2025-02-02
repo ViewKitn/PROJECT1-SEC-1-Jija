@@ -1,5 +1,5 @@
 <script setup>
-import { ref} from "vue";
+import { ref } from "vue";
 const animalList = [
   "monkey",
   "shark",
@@ -102,6 +102,11 @@ const addScore = () => {
 const resetScore = () => {
   score.value = 0;
 };
+
+//feature trackRoundToScorePage
+watch(round, () => {
+  if (round.value >= 16) page.value = "score";
+});
 
 // feature round
 const increaseRound = () => {
@@ -225,7 +230,6 @@ const showtext = () => {
     return "Not bad";
   }
 };
-
 </script>
 
 <template>
@@ -293,7 +297,9 @@ const showtext = () => {
     <!-- play game page -->
     <section class="playgame-page" v-show="page === 'play'">
       <!-- code here -->
-      <div class="playgame-container w-full h-screen bg-linear-to-r from-purple-300 to-pink-600">
+      <div
+        class="playgame-container w-full h-screen bg-linear-to-r from-purple-300 to-pink-600"
+      >
         <header class="flex">
           <div class="btn-back flex-1 self">
             <button
@@ -347,7 +353,7 @@ const showtext = () => {
             class="w-lg h-80 mx-auto object-cover border-[1px] hover:scale-110 duration-150 hover:cursor-zoom-in"
           />
         </div>
-        <h1 class="question my-14 text-7xl text-center font-medium ">
+        <h1 class="question my-14 text-7xl text-center font-medium">
           What is animal ?
         </h1>
         <div class="choice-list flex justify-around mt-24">
@@ -412,5 +418,4 @@ const showtext = () => {
 .background-video {
   pointer-events: none;
 }
-
 </style>
