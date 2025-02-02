@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref} from "vue";
 const animalList = [
   "monkey",
   "shark",
@@ -162,7 +162,7 @@ const resetAnswer = () => {
 const getColorButton = (btnIndex) => {
   switch (btnIndex) {
     case 0:
-      return "hover:bg-red-500";
+      return "hover:bg-purple-500";
     case 1:
       return "hover:bg-blue-500";
     case 2:
@@ -170,7 +170,7 @@ const getColorButton = (btnIndex) => {
     case 3:
       return "hover:bg-yellow-400";
     case 4:
-      return "hover:bg-pink-400";
+      return "hover:bg-orange-500";
   }
 };
 
@@ -225,6 +225,7 @@ const showtext = () => {
     return "Not bad";
   }
 };
+
 </script>
 
 <template>
@@ -243,7 +244,7 @@ const showtext = () => {
           What is it? Let's take a guess!😘
         </p>
         <button
-          class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-green-500 disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-emerald-500 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-lg px-4 md:px-8 h-14 font-bold mb-6 drop-shadow-lg uppercase hover:cursor-pointer"
+          class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-green-500 disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-emerald-500 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-lg px-4 md:px-8 h-14 text-black font-bold mb-6 drop-shadow-lg uppercase hover:cursor-pointer"
           @click="page = 'category'"
         >
           Play
@@ -292,27 +293,69 @@ const showtext = () => {
     <!-- play game page -->
     <section class="playgame-page" v-show="page === 'play'">
       <!-- code here -->
-      <div class="playgame-container w-full h-screen">
-        <header class="flex justify-between">
-          <h1 class="mx-8 text-2xl">{{ round }} / 15</h1>
+      <div class="playgame-container w-full h-screen bg-linear-to-r from-purple-300 to-pink-600">
+        <header class="flex">
+          <div class="btn-back flex-1 self">
+            <button
+              @click="page = 'category'"
+              class="w-40 mx-6 my-3 py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
+            >
+              Back
+            </button>
+          </div>
+
+          <label class="swap flex-1">
+            <!-- this hidden checkbox controls the state -->
+            <input type="checkbox" />
+
+            <!-- volume on icon -->
+            <svg
+              class="swap-on fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
+              />
+            </svg>
+
+            <!-- volume off icon -->
+            <svg
+              class="swap-off fill-current"
+              xmlns="http://www.w3.org/2000/svg"
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M3,9H7L12,4V20L7,15H3V9M16.59,12L14,9.41L15.41,8L18,10.59L20.59,8L22,9.41L19.41,12L22,14.59L20.59,16L18,13.41L15.41,16L14,14.59L16.59,12Z"
+              />
+            </svg>
+          </label>
+          <div class="round flex-1 self-center">
+            <h1 class="h-full mx-7 text-4xl text-end drop-shadow-lg font-bold">
+              {{ round }} / 15
+            </h1>
+          </div>
         </header>
-        <h1 class="answer text-4xl text-center">
-          Answer: <span class="text-red-500">{{ answer }}</span>
-        </h1>
         <div class="img-answer my-5">
           <img
             :src="`../imgs/animals/${answer}.jpg`"
             :alt="`img-${answer}`"
-            class="w-lg h-80 object-cover mx-auto border-[1px]"
+            class="w-lg h-80 mx-auto object-cover border-[1px] hover:scale-110 duration-150 hover:cursor-zoom-in"
           />
         </div>
-        <h1 class="question text-5xl text-center my-5">What is animal ?</h1>
-        <div class="choice-list flex justify-around">
+        <h1 class="question my-14 text-7xl text-center font-medium ">
+          What is animal ?
+        </h1>
+        <div class="choice-list flex justify-around mt-24">
           <button
             v-for="(choice, index) in choiceList"
             :key="index"
             @click="nextRound('animal', index)"
-            class="w-52 h-full my-3 mx-5 py-2 rounded-4xl bg-zinc-100 text-2xl duration-200 ease-in hover:scale-125 hover:text-white hover:cursor-pointer"
+            class="w-56 h-full mx-5 py-4 rounded-4xl bg-zinc-100/70 text-4xl text-black duration-200 ease-in hover:scale-125 hover:text-white hover:cursor-pointer hover:font-medium"
             :class="getColorButton(index)"
           >
             {{ choice }}
@@ -334,20 +377,20 @@ const showtext = () => {
           YOUR SCORE
         </h1>
         <div class="show-user-score my">
-          <span class="rounded-3xl px-50 py-8 bg-gray-100"
+          <span class="rounded-3xl px-50 py-8 bg-gray-100 text-black"
             >{{ score }} / 15</span
           >
         </div>
         <div class="py-40 flex justify-center gap-30">
           <button
             @click="clearGame(), (page = 'home')"
-            class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
+            class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] text-black disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
           >
             HOME
           </button>
           <button
             @click="clearGame(), gameStart('animal'), (page = 'play')"
-            class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
+            class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] text-black disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
           >
             PLAY AGAIN
           </button>
@@ -357,7 +400,7 @@ const showtext = () => {
             loop
             class="background-video absolute inset-0 w-full h-full object-cover mix-blend-screen"
           >
-            <source src="/video/Sequence01.webm" type="video/webm" />
+            <source src="./assets/video/Sequence01.webm" type="video/webm" />
           </video>
         </div>
       </div>
@@ -369,4 +412,5 @@ const showtext = () => {
 .background-video {
   pointer-events: none;
 }
+
 </style>
