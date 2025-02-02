@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref} from "vue";
 const animalList = [
   "monkey",
   "shark",
@@ -225,7 +225,6 @@ const showtext = () => {
     return "Not bad";
   }
 };
-
 
 </script>
 
