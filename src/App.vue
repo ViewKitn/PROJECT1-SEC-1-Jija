@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref} from "vue";
 const animalList = [
   "monkey",
   "shark",
@@ -147,10 +147,7 @@ const randomAnswer = () => {
 const checkAnswer = (userSelect) => {
   if (answer.value === choiceList.value[userSelect]) {
     addScore();
-    console.log(score.value);
-    return true;
   }
-  return false;
 };
 
 const resetAnswerList = () => {
@@ -193,7 +190,7 @@ const gameStart = (category) => {
 
 const nextRound = (category, index) => {
   increaseRound();
-  console.log(checkAnswer(index));
+  checkAnswer(index);
   resetChoiceList();
   if (category === "animal") {
     randomChoice(animalList);
@@ -215,20 +212,19 @@ const clearGame = () => {
   resetRound();
 };
 
-
 const showtext = () => {
   if (score.value === 15) {
-    return "Excellent!!!"
-  }else if (score.value >= 12){
-    return "Perfect!!"
-  }else if (score.value >= 9){
-    return "Great job!"
-  }else if(score.value>= 5){
-    return "Good"
-  }else{
-    return "Not bad"
+    return "Excellent!!!";
+  } else if (score.value >= 12) {
+    return "Perfect!!";
+  } else if (score.value >= 9) {
+    return "Great job!";
+  } else if (score.value >= 5) {
+    return "Good";
+  } else {
+    return "Not bad";
   }
-}
+};
 
 </script>
 
@@ -248,7 +244,7 @@ const showtext = () => {
           What is it? Let's take a guess!😘
         </p>
         <button
-          class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-green-500 disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-emerald-500 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-lg px-4 md:px-8 h-14 font-bold mb-6 drop-shadow-lg uppercase"
+          class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-green-500 disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-emerald-500 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-lg px-4 md:px-8 h-14 font-bold mb-6 drop-shadow-lg uppercase hover:cursor-pointer"
           @click="page = 'category'"
         >
           Play
@@ -272,76 +268,22 @@ const showtext = () => {
         <h1 class="text-5xl font-bold text-orange-500 shadow-lg mb-8">
           Category
         </h1>
-        <div class="grid grid-cols-2 gap-4 w-full max-w-4xl">
-          <div class="category-box p-4">
-            <label class="flex items-center space-x-2 cursor-pointer">
-              <input
-                type="radio"
-                v-model="selectedCategory"
-                value="Animals"
-                :disabled="isDisabled"
-                class="form-radio text-orange-500"
-              />
-              <span class="text-lg">Animals</span>
-            </label>
-          </div>
-
-          <div class="category-box p-4">
-            <label class="flex items-center space-x-2 cursor-pointer">
-              <input
-                type="radio"
-                v-model="selectedCategory"
-                value="Foods"
-                :disabled="isDisabled"
-                class="form-radio text-orange-500"
-              />
-              <span class="text-lg">Foods</span>
-            </label>
-          </div>
-
-          <div class="category-box p-4">
-            <label class="flex items-center space-x-2 cursor-pointer">
-              <input
-                type="radio"
-                v-model="selectedCategory"
-                value="Objects"
-                :disabled="isDisabled"
-                class="form-radio text-orange-500"
-              />
-              <span class="text-lg">Objects</span>
-            </label>
-          </div>
-
-          <div class="category-box p-4">
-            <label class="flex items-center space-x-2 cursor-pointer">
-              <input
-                type="radio"
-                v-model="selectedCategory"
-                value="Places"
-                :disabled="isDisabled"
-                class="form-radio text-orange-500"
-              />
-              <span class="text-lg">Places</span>
-            </label>
-          </div>
-        </div>
-
-        <div v-if="selectedCategory === 'Animals'" class="mt-8">
+        <div class="mt-8">
           <h2 class="text-2xl font-bold text-gray-800">Category: Animals</h2>
           <!-- เว้นที่ใส่รูป -->
         </div>
 
-        <div v-if="selectedCategory === 'Objects'" class="mt-8">
+        <div class="mt-8">
           <h2 class="text-2xl font-bold text-gray-800">Category: Objects</h2>
           <!-- รูป -->
         </div>
 
-        <div v-if="selectedCategory === 'Foods'" class="mt-8">
+        <div class="mt-8">
           <h2 class="text-2xl font-bold text-gray-800">Category: Foods</h2>
           <!-- รูป -->
         </div>
 
-        <div v-if="selectedCategory === 'Places'" class="mt-8">
+        <div class="mt-8">
           <h2 class="text-2xl font-bold text-gray-800">Category: Places</h2>
           <!-- รูป -->
         </div>
@@ -349,9 +291,9 @@ const showtext = () => {
     </section>
 
     <!-- play game page -->
-    <section v-if="round <= 15" class="playgame-page" v-show="page === 'play'">
+    <section class="playgame-page" v-show="page === 'play'">
       <!-- code here -->
-      <div class="playgame-container border-b-2">
+      <div class="playgame-container w-full h-screen">
         <header class="flex justify-between">
           <h1 class="mx-8 text-2xl">{{ round }} / 15</h1>
         </header>
@@ -371,7 +313,7 @@ const showtext = () => {
             v-for="(choice, index) in choiceList"
             :key="index"
             @click="nextRound('animal', index)"
-            class="w-52 h-full my-3 mx-5 py-2 round ed-4xl bg-zinc-100 text-2xl duration-200 ease-in-out hover:scale-125 hover:text-white"
+            class="w-52 h-full my-3 mx-5 py-2 rounded-4xl bg-zinc-100 text-2xl duration-200 ease-in hover:scale-125 hover:text-white hover:cursor-pointer"
             :class="getColorButton(index)"
           >
             {{ choice }}
@@ -381,16 +323,21 @@ const showtext = () => {
     </section>
 
     <!-- score page -->
-    <section class="score-page h-screen bg-linear-to-r from-blue-500 to-pink-500 flex justify-center items-center h-screen" v-show="page === 'score' || round === 16">
+    <section
+      class="score-page h-screen bg-linear-to-r from-blue-500 to-pink-500 flex justify-center items-center"
+      v-show="page === 'score'"
+    >
       <div class="score-container text-4xl text-center">
-        <h1 class="text-white text-9xl ">{{ showtext() }}</h1>
+        <h1 class="text-white text-9xl">{{ showtext() }}</h1>
         <h1
           class="py-16 text-blue-700 font-bold [font-family:'Lucida_Console',monospace]"
         >
           YOUR SCORE
         </h1>
         <div class="show-user-score my">
-          <span class="rounded-3xl px-50 py-8 bg-gray-100">{{ score }}/15</span>
+          <span class="rounded-3xl px-50 py-8 bg-gray-100"
+            >{{ score }} / 15</span
+          >
         </div>
         <div class="py-40 flex justify-center gap-30">
           <button
@@ -405,8 +352,13 @@ const showtext = () => {
           >
             PLAY AGAIN
           </button>
-          <video autoplay muted loop class="background-video absolute inset-0 w-full h-full object-cover mix-blend-screen">
-            <source src="/video/Sequence01.webm" type="video/webm">
+          <video
+            autoplay
+            muted
+            loop
+            class="background-video absolute inset-0 w-full h-full object-cover mix-blend-screen"
+          >
+            <source src="/video/Sequence01.webm" type="video/webm" />
           </video>
         </div>
       </div>
@@ -415,7 +367,7 @@ const showtext = () => {
 </template>
 
 <style scoped>
-  .background-video {
+.background-video {
   pointer-events: none;
-  }
+}
 </style>
