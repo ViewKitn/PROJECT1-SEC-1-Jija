@@ -261,35 +261,33 @@ const showtext = () => {
       >
         Start Game
       </button>
-      <div
-        id="app"
-        class="flex flex-col items-center min-h-screen bg-gray-100 p-4"
-      >
-        <h1 class="text-5xl font-bold text-orange-500 shadow-lg mb-8">
-          Category
-        </h1>
-        <div class="mt-8">
-          <h2 class="text-2xl font-bold text-gray-800">Category: Animals</h2>
-          <!-- เว้นที่ใส่รูป -->
-        </div>
 
-        <div class="mt-8">
-          <h2 class="text-2xl font-bold text-gray-800">Category: Objects</h2>
-          <!-- รูป -->
-        </div>
+      <div id="app" class="flex flex-col items-center min-h-screen bg-gray-100 p-4">
+  <h1 class="text-xl font-bold text-orange-500 shadow-lg mb-8">Category</h1>
+  
+  <div id="category-content" class="mt-8 grid grid-cols-2 gap-4 w-full">
+    <div id="animals-content" class="category-item p-4">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">Animals</h3>
+      <img src="../public/imgs/category/animal.jpg" alt="Animals" class="w-full h-100 object-cover rounded-4xl mb-4" />
+    </div>
 
-        <div class="mt-8">
-          <h2 class="text-2xl font-bold text-gray-800">Category: Foods</h2>
-          <!-- รูป -->
-        </div>
+    <div id="foods-content" class="category-item p-4">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">Fruits</h3>
+      <img src="../public/imgs/category/fruit.png" alt="Fruits" class="w-full h-100 object-cover rounded-4xl mb-4" />
+    </div>
 
-        <div class="mt-8">
-          <h2 class="text-2xl font-bold text-gray-800">Category: Places</h2>
-          <!-- รูป -->
-        </div>
-      </div>
+    <div id="objects-content" class="category-item p-4">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">Objects</h3>
+      <img src="../public/imgs/category/object.jpg" alt="Objects" class="w-full h-100 object-cover rounded-4xl mb-4" />
+    </div>
+
+    <div id="places-content" class="category-item p-4">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">Places</h3>
+      <img src="../public/imgs/category/wat.jpg" alt="Places" class="w-full h-100 object-cover rounded-4xl mb-4" />
+    </div>
+</div>
+</div>
     </section>
-
     <!-- play game page -->
     <section class="playgame-page" v-show="page === 'play'">
       <!-- code here -->
