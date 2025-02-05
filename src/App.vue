@@ -94,6 +94,7 @@ let answer = ref("");
 let score = ref(0);
 let round = ref(0);
 let page = ref("home");
+let category = ref("")
 
 // feature score
 const addScore = () => {
@@ -257,57 +258,55 @@ const showtext = () => {
     </section>
 
     <!-- category page -->
-    <section class="category-page" v-show="page === 'category'">
+    <section class="category-page" v-show="page === 'category'" >
       <!-- code here -->
-      <button
-        @click="gameStart('animal'), (page = 'play')"
-        class="px-6 py-5 bg-green-400"
-      >
-        Start Game
-      </button>
 
       <div
         id="app"
-        class="flex flex-col items-center min-h-screen bg-gray-100 p-4"
+        class="flex flex-col items-center min-h-screen bg-gray-100 p-4 bg-linear-to-r from-yellow-200 to-red-400"
       >
-        <h1 class="text-xl font-bold text-orange-500 shadow-lg mb-8">
+        <h1 class="text-4xl font-bold text-purple-800 shadow-lg mb-8">
           Category
         </h1>
 
         <div id="category-content" class="mt-8 grid grid-cols-2 gap-4 w-full">
           <div id="animals-content" class="category-item p-4">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">Animals</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Animals</h3>
             <img
               src="./assets/imgs/category/animal.jpg"
               alt="Animals"
-              class="w-full h-100 object-cover rounded-4xl mb-4"
+              class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110 "
+              @click="category='animal',gameStart(category),page='play'"
             />
           </div>
 
           <div id="foods-content" class="category-item p-4">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">Fruits</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Fruits</h3>
             <img
               src="./assets/imgs/category/fruit.png"
               alt="Fruits"
-              class="w-full h-100 object-cover rounded-4xl mb-4"
+              class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
+                @click="category='fruit',gameStart(category),page='play'"
             />
           </div>
 
           <div id="objects-content" class="category-item p-4">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">Objects</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Equipments</h3>
             <img
-              src="./assets/imgs/category/object.jpg"
+              src="./assets/imgs/category/equipment.jpg"
               alt="Objects"
-              class="w-full h-100 object-cover rounded-4xl mb-4"
+              class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
+                @click="category='aequipment',gameStart(category),page='play'"
             />
           </div>
 
-          <div id="places-content" class="category-item p-4">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">Places</h3>
+          <div id="places-content" class="category-item p-4 ">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Countries</h3>
             <img
-              src="./assets/imgs/category/wat.jpg"
+              src="./assets/imgs/category/country.png"
               alt="Places"
-              class="w-full h-100 object-cover rounded-4xl mb-4"
+              class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
+                @click="category='country',gameStart(category),page='play'"
             />
           </div>
         </div>
@@ -343,7 +342,7 @@ const showtext = () => {
           <header class="flex">
             <div class="btn-back flex-1 self">
               <button
-                @click="page = 'category'"
+                @click="clearGame(),page = 'category'"
                 class="w-40 mx-6 my-3 py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
               >
                 Back
@@ -390,7 +389,7 @@ const showtext = () => {
           </header>
           <div class="img-answer my-5">
             <img
-              :src="`../imgs/animals/${answer}.jpg`"
+              :src="`../imgs/${category}s/${answer}.jpg`"
               :alt="`img-${answer}`"
               class="w-lg h-80 mx-auto object-cover border-[1px] hover:scale-110 duration-150 hover:cursor-zoom-in"
             />
@@ -402,7 +401,7 @@ const showtext = () => {
             <button
               v-for="(choice, index) in choiceList"
               :key="index"
-              @click="nextRound('animal', index)"
+              @click="nextRound(category, index)"
               class="w-56 h-full mx-5 py-4 rounded-4xl bg-zinc-100/70 text-4xl text-black duration-200 ease-in hover:scale-125 hover:text-white hover:cursor-pointer hover:font-medium"
               :class="getColorButton(index)"
             >
