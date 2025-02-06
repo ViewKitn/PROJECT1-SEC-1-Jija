@@ -94,10 +94,27 @@ const choiceList = ref([]);
 const answerList = [];
 let answer = ref("");
 let score = ref(0);
-let round = ref(0);
+let round = ref(1);
 let page = ref("home");
 let category = ref("");
 let playAgain = ref();
+let setintervalTimerId;
+let time = ref(5);
+
+//feature timer
+const startTimer = () => {
+ setintervalTimerId = setInterval(() => {
+    time.value -= 1;
+    if (time.value === 0) {
+    stopTimer(setintervalTimerId);
+  }
+  }, 1000);
+  
+};
+const stopTimer = (timerId) => {
+  clearInterval(timerId);
+  time.value = 5;
+};
 
 // feature category
 const resetCategory = () => {
@@ -118,7 +135,7 @@ watch(round, () => {
 
 // feature round
 const increaseRound = () => {
-  round.value++;
+  if(round.value !== 1) round.value++;
 };
 
 const resetRound = () => {
@@ -188,6 +205,7 @@ const getColorButton = (btnIndex) => {
 };
 
 const gameStart = (category) => {
+  startTimer();
   increaseRound();
   if (category === "animal") {
     randomChoice(animalList);
@@ -205,6 +223,8 @@ const nextRound = (category, index) => {
   increaseRound();
   checkAnswer(index);
   resetChoiceList();
+  stopTimer(setintervalTimerId)
+  startTimer();
   if (category === "animal") {
     randomChoice(animalList);
   } else if (category === "fruit") {
