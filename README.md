@@ -2,7 +2,7 @@ Project: What is it? ( เกมทายว่ามันคืออะไร
 
 66130500007 Kittikan Weelmek 
 
-feature: นับคะแนน, รวมคะแนน, watch ( ทำการ tracking variable page เพื่อจะที่ทำการเปลี่ยนค่าเป็น score ใช้ในการ show score page )
+feature: นับคะแนน, รวมคะแนน, watch ( ทำการ tracking variable round เพื่อจะที่ทำการเปลี่ยนค่า page เป็น score ใช้ในการ show score page )
 
 page: main-page 
 
