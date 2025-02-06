@@ -358,7 +358,7 @@ const showtext = () => {
           <header class="flex">
             <div class="btn-back flex-1 self">
               <button
-                @click="clearGame(), (page = 'category')"
+                @click="(playAgain = false), clearGame(), (page = 'category')"
                 class="w-40 mx-6 my-3 py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
               >
                 Back
@@ -480,8 +480,8 @@ const showtext = () => {
 <style scoped>
 .background-video {
   pointer-events: none;
-}x
-.modal-content {
+}
+x .modal-content {
   animation-name: showmodal-animate;
   animation-duration: 1.5s;
   animation-timing-function: ease-in;
