@@ -481,7 +481,7 @@ const showtext = () => {
 .background-video {
   pointer-events: none;
 }
-x .modal-content {
+.modal-content {
   animation-name: showmodal-animate;
   animation-duration: 1.5s;
   animation-timing-function: ease-in;
