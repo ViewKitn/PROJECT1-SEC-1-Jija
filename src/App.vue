@@ -62,7 +62,7 @@ const countryList = [
   "italy",
   "japan",
   "mexico",
-  "philippines",
+  "philippine",
   "russia",
   "portugal",
 ];
@@ -72,7 +72,7 @@ const homeEquipmentList = [
   "dishwasher",
   "washing machine",
   "clothes iron",
-  "hair dyer",
+  "hair dryer",
   "air conditioner",
   "heater",
   "electric fan",
@@ -88,14 +88,21 @@ const homeEquipmentList = [
   "griddle",
   "toothbrush",
 ];
+
+// variabal
 const choiceList = ref([]);
 const answerList = [];
 let answer = ref("");
 let score = ref(0);
 let round = ref(0);
 let page = ref("home");
-let category = ref("")
+let category = ref("");
+let playAgain = ref();
 
+// feature category
+const resetCategory = () => {
+  category.value = "";
+};
 // feature score
 const addScore = () => {
   score.value += 1;
@@ -211,6 +218,7 @@ const nextRound = (category, index) => {
 };
 
 const clearGame = () => {
+  if (!playAgain.value) resetCategory();
   resetScore();
   resetChoiceList();
   resetAnswerList();
@@ -258,7 +266,7 @@ const showtext = () => {
     </section>
 
     <!-- category page -->
-    <section class="category-page" v-show="page === 'category'" >
+    <section class="category-page" v-show="page === 'category'">
       <!-- code here -->
 
       <div
@@ -275,8 +283,10 @@ const showtext = () => {
             <img
               src="./assets/imgs/category/animal.jpg"
               alt="Animals"
-              class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110 "
-              @click="category='animal',gameStart(category),page='play'"
+              class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
+              @click="
+                (category = 'animal'), gameStart(category), (page = 'play')
+              "
             />
           </div>
 
@@ -286,7 +296,9 @@ const showtext = () => {
               src="./assets/imgs/category/fruit.png"
               alt="Fruits"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
-                @click="category='fruit',gameStart(category),page='play'"
+              @click="
+                (category = 'fruit'), gameStart(category), (page = 'play')
+              "
             />
           </div>
 
@@ -296,17 +308,21 @@ const showtext = () => {
               src="./assets/imgs/category/equipment.jpg"
               alt="Objects"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
-                @click="category='aequipment',gameStart(category),page='play'"
+              @click="
+                (category = 'equipment'), gameStart(category), (page = 'play')
+              "
             />
           </div>
 
-          <div id="places-content" class="category-item p-4 ">
+          <div id="places-content" class="category-item p-4">
             <h3 class="text-2xl font-bold text-gray-800 mb-4">Countries</h3>
             <img
               src="./assets/imgs/category/country.png"
               alt="Places"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
-                @click="category='country',gameStart(category),page='play'"
+              @click="
+                (category = 'country'), gameStart(category), (page = 'play')
+              "
             />
           </div>
         </div>
@@ -323,7 +339,7 @@ const showtext = () => {
           v-show="true"
           class="show-modal w-full h-screen flex z-10 bg-black/50"
         >
-          <div class="modal-content w-0 h-[30%] self-center bg-white/90 ] ">
+          <div class="modal-content w-0 h-[30%] self-center bg-white/90 ]">
             <h1 class="w-fit mx-auto text-8xl text-green-600">Correct</h1>
             <p class="w-fit mx-auto my-4 text-2xl text-black">
               Answer: <span class="text-red-500">{{ answer }}</span>
@@ -342,7 +358,7 @@ const showtext = () => {
           <header class="flex">
             <div class="btn-back flex-1 self">
               <button
-                @click="clearGame(),page = 'category'"
+                @click="clearGame(), (page = 'category')"
                 class="w-40 mx-6 my-3 py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
               >
                 Back
@@ -395,7 +411,7 @@ const showtext = () => {
             />
           </div>
           <h1 class="question my-14 text-7xl text-center font-medium">
-            What is animal ?
+            What is {{ category }} ?
           </h1>
           <div class="choice-list flex justify-around mt-24">
             <button
@@ -431,13 +447,18 @@ const showtext = () => {
         </div>
         <div class="py-40 flex justify-center gap-30">
           <button
-            @click="clearGame(), (page = 'home')"
+            @click="(playAgain = false), clearGame(), (page = 'home')"
             class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] text-black disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
           >
             HOME
           </button>
           <button
-            @click="clearGame(), gameStart('animal'), (page = 'play')"
+            @click="
+              (playAgain = true),
+                clearGame(),
+                gameStart(category),
+                (page = 'play')
+            "
             class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] text-black disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
           >
             PLAY AGAIN
@@ -459,7 +480,7 @@ const showtext = () => {
 <style scoped>
 .background-video {
   pointer-events: none;
-}
+}x
 .modal-content {
   animation-name: showmodal-animate;
   animation-duration: 1.5s;
@@ -467,11 +488,11 @@ const showtext = () => {
   animation-fill-mode: both;
 }
 @keyframes showmodal-animate {
-  from{
+  from {
     width: 0;
-  } to {
+  }
+  to {
     width: 100%;
   }
- 
 }
 </style>
