@@ -20,6 +20,6 @@ page: playgame-page
 
 66130500060 Paveepat Thaitiemsing  
 
-feature: ระบบจัดการ page ( เมื่อกดปุ่ม play, back, home, play again จะสลับเปลี่ยน page หน้าใหม่ขึ้นมา ), showtext ( แสดงคะแนนเมื่อเข้าเงื่อนไขต่างๆ เช่น เมื่อได้ 12 คะแนนขึ้นไปจะแสดงข้อความ Perfect )
+feature: ระบบจัดการ page ( เมื่อกดปุ่ม play, back, home, play again จะสลับเปลี่ยน page หน้าใหม่ขึ้นมา ), showtext ( แสดงคะแนนเมื่อเข้าเงื่อนไขต่างๆ เช่น เมื่อได้ 12 คะแนนขึ้นไปจะแสดงข้อความ Perfect ), showModal / ModalContent ( จะแสดงข้อมความ correct / incorrect )  
 
 page: score-page 
