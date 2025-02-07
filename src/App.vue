@@ -100,6 +100,8 @@ let category = ref("");
 let playAgain = ref();
 let setintervalTimerId;
 let time = ref(5);
+let modal = ref("");
+let stateAnswer = ref("");
 
 //feature timer
 const startTimer = () => {
@@ -107,6 +109,8 @@ const startTimer = () => {
     time.value -= 1;
     if (time.value === 0) {
     stopTimer(setintervalTimerId);
+    stateAnswer.value = 'incorrect'
+    showmodal();
   }
   }, 1000);
   
@@ -177,6 +181,9 @@ const randomAnswer = () => {
 const checkAnswer = (userSelect) => {
   if (answer.value === choiceList.value[userSelect]) {
     addScore();
+    stateAnswer.value = "correct";
+  }else{
+    stateAnswer.value = "incorrect";
   }
 };
 
@@ -219,12 +226,12 @@ const gameStart = () => {
   randomAnswer();
 };
 
-const nextRound = (answerSelect) => {
+const nextRound = () => {
   increaseRound();
-  checkAnswer(answerSelect);
   resetChoiceList();
   stopTimer(setintervalTimerId)
   startTimer();
+  showmodal();
   if (category.value === "animal") {
     randomChoice(animalList);
   } else if (category.value === "fruit") {
@@ -259,6 +266,15 @@ const showtext = () => {
     return "Not bad";
   }
 };
+
+const showmodal = () => {
+  if (modal.value !== "show") {
+    modal.value = "show"
+  }else{
+    modal.value = ""
+  }
+}
+
 </script>
 
 <template>
@@ -356,16 +372,19 @@ const showtext = () => {
       >
         <!-- show-modal -->
         <div
-          v-show="true"
+          v-show="modal === 'show'"
           class="show-modal w-full h-screen flex z-10 bg-black/50"
         >
           <div class="modal-content w-0 h-[30%] self-center bg-white/90 ]">
-            <h1 class="w-fit mx-auto text-8xl text-green-600">Correct</h1>
-            <p class="w-fit mx-auto my-4 text-2xl text-black">
+            <h1 class="w-fit mx-auto text-8xl text-green-600">{{ stateAnswer === 'correct'?'Correct':'Incorrect' }}</h1>
+            <p v-show="stateAnswer === 'correct'">Good Job</p>
+            <p v-show="stateAnswer === 'incorrect'"
+            class="w-fit mx-auto my-4 text-2xl text-black">
               Answer: <span class="text-red-500">{{ answer }}</span>
             </p>
             <div class="btn-next flex justify-center">
               <button
+                @click="nextRound()"
                 class="w-40 my-3 py-2 rounded-4xl text-2xl text-black bg-yellow-300 duration-200 ease-in hover:cursor-pointer hover:font-medium"
               >
                 Next
@@ -409,7 +428,7 @@ const showtext = () => {
             <button
               v-for="(choice, index) in choiceList"
               :key="index"
-              @click="nextRound(index)"
+              @click="checkAnswer(index) , showmodal()"
               class="w-56 h-full mx-5 py-4 rounded-4xl bg-zinc-100/70 text-4xl text-black duration-200 ease-in hover:scale-125 hover:text-white hover:cursor-pointer hover:font-medium"
               :class="getColorButton(index)"
             >
