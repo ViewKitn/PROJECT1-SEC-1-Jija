@@ -89,12 +89,12 @@ const homeEquipmentList = [
   "toothbrush",
 ];
 
-// variabal
+// variable
 const choiceList = ref([]);
 const answerList = [];
 let answer = ref("");
 let score = ref(0);
-let round = ref(1);
+let round = ref(0);
 let page = ref("home");
 let category = ref("");
 let playAgain = ref();
@@ -135,7 +135,7 @@ watch(round, () => {
 
 // feature round
 const increaseRound = () => {
-  if(round.value !== 1) round.value++;
+  round.value++;
 };
 
 const resetRound = () => {
@@ -204,34 +204,34 @@ const getColorButton = (btnIndex) => {
   }
 };
 
-const gameStart = (category) => {
+const gameStart = () => {
   startTimer();
   increaseRound();
-  if (category === "animal") {
+  if (category.value === "animal") {
     randomChoice(animalList);
-  } else if (category === "fruit") {
+  } else if (category.value === "fruit") {
     randomChoice(fruitList);
-  } else if (category === "country") {
+  } else if (category.value === "country") {
     randomChoice(countryList);
-  } else if (category === "equipment") {
+  } else if (category.value === "equipment") {
     randomChoice(homeEquipmentList);
   }
   randomAnswer();
 };
 
-const nextRound = (category, index) => {
+const nextRound = (answerSelect) => {
   increaseRound();
-  checkAnswer(index);
+  checkAnswer(answerSelect);
   resetChoiceList();
   stopTimer(setintervalTimerId)
   startTimer();
-  if (category === "animal") {
+  if (category.value === "animal") {
     randomChoice(animalList);
-  } else if (category === "fruit") {
+  } else if (category.value === "fruit") {
     randomChoice(fruitList);
-  } else if (category === "country") {
+  } else if (category.value === "country") {
     randomChoice(countryList);
-  } else if (category === "equipment") {
+  } else if (category.value === "equipment") {
     randomChoice(homeEquipmentList);
   }
   randomAnswer();
@@ -305,7 +305,7 @@ const showtext = () => {
               alt="Animals"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
               @click="
-                (category = 'animal'), gameStart(category), (page = 'play')
+                (category = 'animal'), gameStart(), (page = 'play')
               "
             />
           </div>
@@ -317,7 +317,7 @@ const showtext = () => {
               alt="Fruits"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
               @click="
-                (category = 'fruit'), gameStart(category), (page = 'play')
+                (category = 'fruit'), gameStart(), (page = 'play')
               "
             />
           </div>
@@ -329,7 +329,7 @@ const showtext = () => {
               alt="Objects"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
               @click="
-                (category = 'equipment'), gameStart(category), (page = 'play')
+                (category = 'equipment'), gameStart(), (page = 'play')
               "
             />
           </div>
@@ -341,7 +341,7 @@ const showtext = () => {
               alt="Places"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
               @click="
-                (category = 'country'), gameStart(category), (page = 'play')
+                (category = 'country'), gameStart(), (page = 'play')
               "
             />
           </div>
@@ -375,46 +375,18 @@ const showtext = () => {
         </div>
         <!-- content-game -->
         <div class="game-content">
-          <header class="flex">
-            <div class="btn-back flex-1 self">
+          <header class="flex h-24">
+            <div class="btn-back flex-1 self-center">
               <button
                 @click="(playAgain = false), clearGame(), (page = 'category')"
-                class="w-40 mx-6 my-3 py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
+                class="w-40 mx-6  py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
               >
                 Back
               </button>
             </div>
-
-            <label class="swap flex-1">
-              <!-- this hidden checkbox controls the state -->
-              <input type="checkbox" />
-
-              <!-- volume on icon -->
-              <svg
-                class="swap-on fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
-                />
-              </svg>
-
-              <!-- volume off icon -->
-              <svg
-                class="swap-off fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M3,9H7L12,4V20L7,15H3V9M16.59,12L14,9.41L15.41,8L18,10.59L20.59,8L22,9.41L19.41,12L22,14.59L20.59,16L18,13.41L15.41,16L14,14.59L16.59,12Z"
-                />
-              </svg>
-            </label>
+            <div class="timer self-center">
+                <h1 class="text-4xl font-bold">{{time}}</h1>
+            </div>
             <div class="round flex-1 self-center">
               <h1
                 class="h-full mx-7 text-4xl text-end drop-shadow-lg font-bold"
@@ -437,7 +409,7 @@ const showtext = () => {
             <button
               v-for="(choice, index) in choiceList"
               :key="index"
-              @click="nextRound(category, index)"
+              @click="nextRound(index)"
               class="w-56 h-full mx-5 py-4 rounded-4xl bg-zinc-100/70 text-4xl text-black duration-200 ease-in hover:scale-125 hover:text-white hover:cursor-pointer hover:font-medium"
               :class="getColorButton(index)"
             >
@@ -476,7 +448,7 @@ const showtext = () => {
             @click="
               (playAgain = true),
                 clearGame(),
-                gameStart(category),
+                gameStart(),
                 (page = 'play')
             "
             class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] text-black disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
