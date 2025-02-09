@@ -97,33 +97,27 @@ let score = ref(0);
 let round = ref(0);
 let page = ref("home");
 let category = ref("");
-let playAgain = ref();
-let setintervalTimerId;
 let time = ref(5);
-let modal = ref("");
+let modal = ref("close");
 let stateAnswer = ref("");
+let setintervalTimerId;
 
 //feature timer
 const startTimer = () => {
- setintervalTimerId = setInterval(() => {
+  setintervalTimerId = setInterval(() => {
     time.value -= 1;
     if (time.value === 0) {
-    stopTimer(setintervalTimerId);
-    stateAnswer.value = 'incorrect'
-    showmodal();
-  }
+      stateAnswer.value = "incorrect";
+      showmodal();
+      stopTimer(setintervalTimerId);
+    }
   }, 1000);
-  
 };
 const stopTimer = (timerId) => {
   clearInterval(timerId);
   time.value = 5;
 };
 
-// feature category
-const resetCategory = () => {
-  category.value = "";
-};
 // feature score
 const addScore = () => {
   score.value += 1;
@@ -134,7 +128,10 @@ const resetScore = () => {
 
 //feature trackRoundToScorePage
 watch(round, () => {
-  if (round.value >= 16) page.value = "score";
+  if (round.value >= 16) {
+    page.value = "score";
+    stopTimer(setintervalTimerId);
+  }
 });
 
 // feature round
@@ -182,7 +179,7 @@ const checkAnswer = (userSelect) => {
   if (answer.value === choiceList.value[userSelect]) {
     addScore();
     stateAnswer.value = "correct";
-  }else{
+  } else {
     stateAnswer.value = "incorrect";
   }
 };
@@ -229,7 +226,6 @@ const gameStart = () => {
 const nextRound = () => {
   increaseRound();
   resetChoiceList();
-  stopTimer(setintervalTimerId)
   startTimer();
   showmodal();
   if (category.value === "animal") {
@@ -245,7 +241,7 @@ const nextRound = () => {
 };
 
 const clearGame = () => {
-  if (!playAgain.value) resetCategory();
+  stopTimer(setintervalTimerId)
   resetScore();
   resetChoiceList();
   resetAnswerList();
@@ -269,12 +265,11 @@ const showtext = () => {
 
 const showmodal = () => {
   if (modal.value !== "show") {
-    modal.value = "show"
-  }else{
-    modal.value = ""
+    modal.value = "show";
+  } else {
+    modal.value = "close";
   }
-}
-
+};
 </script>
 
 <template>
@@ -320,9 +315,7 @@ const showmodal = () => {
               src="./assets/imgs/category/animal.jpg"
               alt="Animals"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
-              @click="
-                (category = 'animal'), gameStart(), (page = 'play')
-              "
+              @click="(category = 'animal'), gameStart(), (page = 'play')"
             />
           </div>
 
@@ -332,9 +325,7 @@ const showmodal = () => {
               src="./assets/imgs/category/fruit.png"
               alt="Fruits"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
-              @click="
-                (category = 'fruit'), gameStart(), (page = 'play')
-              "
+              @click="(category = 'fruit'), gameStart(), (page = 'play')"
             />
           </div>
 
@@ -344,9 +335,7 @@ const showmodal = () => {
               src="./assets/imgs/category/equipment.jpg"
               alt="Objects"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
-              @click="
-                (category = 'equipment'), gameStart(), (page = 'play')
-              "
+              @click="(category = 'equipment'), gameStart(), (page = 'play')"
             />
           </div>
 
@@ -356,9 +345,7 @@ const showmodal = () => {
               src="./assets/imgs/category/country.png"
               alt="Places"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
-              @click="
-                (category = 'country'), gameStart(), (page = 'play')
-              "
+              @click="(category = 'country'), gameStart(), (page = 'play')"
             />
           </div>
         </div>
@@ -368,18 +355,22 @@ const showmodal = () => {
     <section v-show="page === 'play'" class="playgame-page">
       <!-- code here -->
       <div
-        class="playgame-container w-full h-screen bg-linear-to-r from-purple-300 to-pink-600"
+        class="playgame-container w-full bg-linear-to-r from-purple-300 to-pink-600"
       >
         <!-- show-modal -->
         <div
           v-show="modal === 'show'"
-          class="show-modal w-full h-screen flex z-10 bg-black/50"
+          class="show-modal w-full h-screen flex z-30 bg-black/50"
         >
           <div class="modal-content w-0 h-[30%] self-center bg-white/90 ]">
-            <h1 class="w-fit mx-auto text-8xl text-green-600">{{ stateAnswer === 'correct'?'Correct':'Incorrect' }}</h1>
+            <h1 class="w-fit mx-auto text-8xl text-green-600">
+              {{ stateAnswer === "correct" ? "Correct" : "Incorrect" }}
+            </h1>
             <p v-show="stateAnswer === 'correct'">Good Job</p>
-            <p v-show="stateAnswer === 'incorrect'"
-            class="w-fit mx-auto my-4 text-2xl text-black">
+            <p
+              v-show="stateAnswer === 'incorrect'"
+              class="w-fit mx-auto my-4 text-2xl text-black"
+            >
               Answer: <span class="text-red-500">{{ answer }}</span>
             </p>
             <div class="btn-next flex justify-center">
@@ -393,18 +384,18 @@ const showmodal = () => {
           </div>
         </div>
         <!-- content-game -->
-        <div class="game-content">
+        <div class="game-content w-full h-screen">
           <header class="flex h-24">
             <div class="btn-back flex-1 self-center">
               <button
-                @click="(playAgain = false), clearGame(), (page = 'category')"
-                class="w-40 mx-6  py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
+                @click="clearGame(), (page = 'category')"
+                class="w-40 mx-6 py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
               >
                 Back
               </button>
             </div>
             <div class="timer self-center">
-                <h1 class="text-4xl font-bold">{{time}}</h1>
+              <h1 class="text-4xl font-bold">{{ time }}</h1>
             </div>
             <div class="round flex-1 self-center">
               <h1
@@ -428,7 +419,9 @@ const showmodal = () => {
             <button
               v-for="(choice, index) in choiceList"
               :key="index"
-              @click="checkAnswer(index) , showmodal()"
+              @click="
+                stopTimer(setintervalTimerId), checkAnswer(index), showmodal()
+              "
               class="w-56 h-full mx-5 py-4 rounded-4xl bg-zinc-100/70 text-4xl text-black duration-200 ease-in hover:scale-125 hover:text-white hover:cursor-pointer hover:font-medium"
               :class="getColorButton(index)"
             >
@@ -458,18 +451,13 @@ const showmodal = () => {
         </div>
         <div class="py-40 flex justify-center gap-30">
           <button
-            @click="(playAgain = false), clearGame(), (page = 'home')"
+            @click="clearGame(), (page = 'home')"
             class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] text-black disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
           >
             HOME
           </button>
           <button
-            @click="
-              (playAgain = true),
-                clearGame(),
-                gameStart(),
-                (page = 'play')
-            "
+            @click="clearGame(), gameStart(), (page = 'play')"
             class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] text-black disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
           >
             PLAY AGAIN
@@ -494,7 +482,7 @@ const showmodal = () => {
 }
 .modal-content {
   animation-name: showmodal-animate;
-  animation-duration: 1.5s;
+  animation-duration: 0.5s;
   animation-timing-function: ease-in;
   animation-fill-mode: both;
 }
