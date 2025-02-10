@@ -241,7 +241,7 @@ const nextRound = () => {
 };
 
 const clearGame = () => {
-  stopTimer(setintervalTimerId)
+  stopTimer(setintervalTimerId);
   resetScore();
   resetChoiceList();
   resetAnswerList();
@@ -360,26 +360,28 @@ const showmodal = () => {
         <!-- show-modal -->
         <div
           v-show="modal === 'show'"
-          class="show-modal w-full h-screen flex z-30 bg-black/50"
+          class="show-modal w-full h-screen flex justify-center fixed z-10 bg-black/50"
         >
-          <div class="modal-content w-0 h-[30%] self-center bg-white/90 ]">
-            <h1 class="w-fit mx-auto text-8xl text-green-600">
-              {{ stateAnswer === "correct" ? "Correct" : "Incorrect" }}
-            </h1>
-            <p v-show="stateAnswer === 'correct'">Good Job</p>
-            <p
-              v-show="stateAnswer === 'incorrect'"
-              class="w-fit mx-auto my-4 text-2xl text-black"
-            >
-              Answer: <span class="text-red-500">{{ answer }}</span>
-            </p>
-            <div class="btn-next flex justify-center">
-              <button
-                @click="nextRound()"
-                class="w-40 my-3 py-2 rounded-4xl text-2xl text-black bg-yellow-300 duration-200 ease-in hover:cursor-pointer hover:font-medium"
+          <div class="modal-slide w-0 h-[30%] self-center bg-white/90 ]">
+            <div class="modal-content">
+              <h1 class="w-fit mx-auto text-8xl text-green-600">
+                {{ stateAnswer === "correct" ? "Correct" : "Incorrect" }}
+              </h1>
+              <p v-show="stateAnswer === 'correct'" class="w-fit mx-auto my-4  text-2xl text-black">Good Job</p>
+              <p
+                v-show="stateAnswer === 'incorrect'"
+                class="w-fit mx-auto my-4 text-2xl text-black"
               >
-                Next
-              </button>
+                Answer: <span class="text-red-500">{{ answer }}</span>
+              </p>
+              <div class="btn-next flex justify-center">
+                <button
+                  @click="nextRound()"
+                  class="w-40 my-3 py-2 rounded-4xl text-2xl text-black bg-yellow-300 duration-200 ease-in hover:cursor-pointer hover:font-medium"
+                >
+                  Next
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -480,9 +482,9 @@ const showmodal = () => {
 .background-video {
   pointer-events: none;
 }
-.modal-content {
+.modal-slide {
   animation-name: showmodal-animate;
-  animation-duration: 0.5s;
+  animation-duration: 0.3s;
   animation-timing-function: ease-in;
   animation-fill-mode: both;
 }
