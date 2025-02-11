@@ -370,7 +370,7 @@ const showmodal = () => {
               <h1 class="w-fit mx-auto text-8xl text-green-600">
                 {{ stateAnswer === "correct" ? "Correct" : "Incorrect" }}
               </h1>
-              <p v-show="stateAnswer === 'correct'" class="w-fit mx-auto my-4  text-2xl text-black">Good Job</p>
+              <p v-show="stateAnswer === 'correct'" class="w-fit mx-auto my-4  text-2xl text-black">Bravo</p>
               <p
                 v-show="stateAnswer === 'incorrect'"
                 class="w-fit mx-auto my-4 text-2xl text-black"
