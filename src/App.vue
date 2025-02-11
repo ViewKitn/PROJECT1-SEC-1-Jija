@@ -101,6 +101,7 @@ let time = ref(5);
 let modal = ref("close");
 let stateAnswer = ref("");
 let setintervalTimerId;
+let modalContent = ref("close");
 
 //feature timer
 const startTimer = () => {
@@ -266,8 +267,10 @@ const showtext = () => {
 const showmodal = () => {
   if (modal.value !== "show") {
     modal.value = "show";
+    setTimeout(() => (modalContent.value = "show"),300);
   } else {
     modal.value = "close";
+    modalContent.value = "close"
   }
 };
 </script>
@@ -363,7 +366,7 @@ const showmodal = () => {
           class="show-modal w-full h-screen flex justify-center fixed z-10 bg-black/50"
         >
           <div class="modal-slide w-0 h-[30%] self-center bg-white/90 ]">
-            <div class="modal-content">
+            <div v-show="modalContent === 'show'" class="modal-content">
               <h1 class="w-fit mx-auto text-8xl text-green-600">
                 {{ stateAnswer === "correct" ? "Correct" : "Incorrect" }}
               </h1>
