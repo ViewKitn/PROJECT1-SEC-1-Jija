@@ -164,6 +164,8 @@ const resetChoiceList = () => {
   choiceList.value.splice(0);
 };
 
+
+
 // feature answer
 const randomAnswer = () => {
   while (true) {
@@ -273,6 +275,18 @@ const showmodal = () => {
     modalContent.value = "close"
   }
 };
+
+// feature audio
+const musicPlayer=ref('starting')
+console.log(musicPlayer.value)
+const onMusic = ref(false)
+const playMusic = ()=>{
+onMusic.value = !onMusic.value
+console.log(musicPlayer.value)
+if(onMusic.value) musicPlayer.value.play()
+else musicPlayer.value.pause()
+}
+
 </script>
 
 <template>
@@ -310,6 +324,50 @@ const showmodal = () => {
         <h1 class="text-4xl font-bold text-purple-800 shadow-lg mb-8">
           Category
         </h1>
+
+
+    <div>
+      <div>
+    <div class="flex space-x-1 items-center">
+      <label class="swap">
+        <input type="checkbox" @click="playMusic" v-model="onMusic" />
+
+        <svg
+          class="swap-on fill-current"
+          xmlns="http://www.w3.org/2000/svg"
+          width="50"
+          height="50"
+          viewBox="0 0 24 24"
+          style="color: black">
+          <path
+            d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 
+            21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
+          />
+        </svg>
+
+        <svg
+          class="swap-off fill-current"
+          xmlns="http://www.w3.org/2000/svg"
+          width="50"
+          height="50"
+          viewBox="0 0 24 24"
+          style = "color:black" >
+          <path
+            d="M3,9H7L12,4V20L7,15H3V9M16.59,12L14,9.41L15.41,8L18,10.59L20.59,8L22,9.41L19.41,12L22,
+            14.59L20.59,16L18,13.41L15.41,16L14,14.59L16.59,12Z"
+          />
+        </svg>
+      </label>
+      <audio controls class="hidden" ref="musicPlayer" loop>
+        <source src="./assets/audio/GameMusic.mp3" type="audio/mp3" />
+        <p>
+          Your browser doesn't support this audio file. Here is a
+          <a href="./assets/audio/GameMusic.mp3">link to the audio</a> instead.
+        </p>
+      </audio>
+    </div>
+  </div>
+    </div>
 
         <div id="category-content" class="mt-8 grid grid-cols-2 gap-4 w-full">
           <div id="animals-content" class="category-item p-4">
@@ -373,15 +431,14 @@ const showmodal = () => {
               <p v-show="stateAnswer === 'correct'" class="w-fit mx-auto my-4  text-2xl text-black">Bravo</p>
               <p
                 v-show="stateAnswer === 'incorrect'"
-                class="w-fit mx-auto my-4 text-2xl text-black"
-              >
+                class="w-fit mx-auto my-4 text-2xl text-black">
                 Answer: <span class="text-red-500">{{ answer }}</span>
               </p>
               <div class="btn-next flex justify-center">
                 <button
                   @click="nextRound()"
-                  class="w-40 my-3 py-2 rounded-4xl text-2xl text-black bg-yellow-300 duration-200 ease-in hover:cursor-pointer hover:font-medium"
-                >
+                  class="w-40 my-3 py-2 rounded-4xl text-2xl text-black bg-yellow-300 duration-200 ease-in
+                   hover:cursor-pointer hover:font-medium">
                   Next
                 </button>
               </div>
@@ -394,8 +451,8 @@ const showmodal = () => {
             <div class="btn-back flex-1 self-center">
               <button
                 @click="clearGame(), (page = 'category')"
-                class="w-40 mx-6 py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
-              >
+                class="w-40 mx-6 py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in 
+                hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium">
                 Back
               </button>
             </div>
@@ -404,8 +461,7 @@ const showmodal = () => {
             </div>
             <div class="round flex-1 self-center">
               <h1
-                class="h-full mx-7 text-4xl text-end drop-shadow-lg font-bold"
-              >
+                class="h-full mx-7 text-4xl text-end drop-shadow-lg font-bold">
                 {{ round }} / 15
               </h1>
             </div>
@@ -414,8 +470,7 @@ const showmodal = () => {
             <img
               :src="`../imgs/${category}s/${answer}.jpg`"
               :alt="`img-${answer}`"
-              class="w-lg h-80 mx-auto object-cover border-[1px] hover:scale-110 duration-150 hover:cursor-zoom-in"
-            />
+              class="w-lg h-80 mx-auto object-cover border-[1px] hover:scale-110 duration-150 hover:cursor-zoom-in"/>
           </div>
           <h1 class="question my-14 text-7xl text-center font-medium">
             What is {{ category }} ?
@@ -428,8 +483,7 @@ const showmodal = () => {
                 stopTimer(setintervalTimerId), checkAnswer(index), showmodal()
               "
               class="w-56 h-full mx-5 py-4 rounded-4xl bg-zinc-100/70 text-4xl text-black duration-200 ease-in hover:scale-125 hover:text-white hover:cursor-pointer hover:font-medium"
-              :class="getColorButton(index)"
-            >
+              :class="getColorButton(index)">
               {{ choice }}
             </button>
           </div>
