@@ -88,6 +88,13 @@ const homeEquipmentList = [
   "griddle",
   "toothbrush",
 ];
+const ComplimentList = [
+  "Bravo",
+  "Nice",
+  "Great",
+  "Awesome",
+  "Fabulous",
+];
 
 // variable
 const choiceList = ref([]);
@@ -173,6 +180,13 @@ const resetChoiceList = () => {
 };
 
 // feature answer
+let complimentText = ref('');  
+const showCompliment = () => {
+  const randomCompliment = ComplimentList[Math.floor(Math.random() * ComplimentList.length)];
+  complimentText.value = randomCompliment;
+  return randomCompliment;
+};
+
 const randomAnswer = () => {
   while (true) {
     const index = Math.floor(Math.random() * choiceList.value.length);
@@ -188,6 +202,8 @@ const checkAnswer = (userSelect) => {
   if (answer.value === choiceList.value[userSelect]) {
     addScore();
     stateAnswer.value = "correct";
+    const compliment = showCompliment();  
+    console.log(compliment);
   } else {
     stateAnswer.value = "incorrect";
   }
@@ -431,11 +447,7 @@ const showmodal = () => {
               <h1 class="w-fit mx-auto text-8xl text-green-600">
                 {{ stateAnswer === "correct" ? "Correct" : "Incorrect" }}
               </h1>
-              <p
-                v-show="stateAnswer === 'correct'"
-                class="w-fit mx-auto my-4 text-2xl text-black"
-              >
-                Bravo
+              <p v-show="stateAnswer === 'correct'" class="w-fit mx-auto my-4 text-2xl text-black">{{ complimentText }}
               </p>
               <p
                 v-show="stateAnswer === 'incorrect'"
