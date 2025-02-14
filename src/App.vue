@@ -88,6 +88,13 @@ const homeEquipmentList = [
   "griddle",
   "toothbrush",
 ];
+const complimentList = [
+  "Bravo",
+  "Nice",
+  "Great",
+  "Awesome",
+  "Fabulous",
+];
 
 // variable
 const choiceList = ref([]);
@@ -104,6 +111,7 @@ let time = ref(5);
 let setintervalTimerId;
 const musicPlayer = ref("starting");
 const onMusic = ref(false);
+let complimentText = ref('');  
 
 // feature audio
 const playMusic = () => {
@@ -173,6 +181,13 @@ const resetChoiceList = () => {
 };
 
 // feature answer
+
+const showCompliment = () => {
+  const randomCompliment = complimentList[Math.floor(Math.random() * complimentList.length)];
+  complimentText.value = randomCompliment;
+  return randomCompliment;
+};
+
 const randomAnswer = () => {
   while (true) {
     const index = Math.floor(Math.random() * choiceList.value.length);
@@ -188,6 +203,8 @@ const checkAnswer = (userSelect) => {
   if (answer.value === choiceList.value[userSelect]) {
     addScore();
     stateAnswer.value = "correct";
+    const compliment = showCompliment();  
+    console.log(compliment);
   } else {
     stateAnswer.value = "incorrect";
   }
@@ -292,43 +309,7 @@ const showmodal = () => {
     >
       <!-- code here -->
       <div class="text-center">
-        <h1 class="text-6xl font-bold mb-6 drop-shadow-lg text-white">
-          Welcome to the Game!
-        </h1>
-        <p class="text-xl mb-8 opacity-90 text-white">
-          What is it? Let's take a guess!😘
-        </p>
-        <button
-          class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-green-500 disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-emerald-500 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-lg px-4 md:px-8 h-14 text-black font-bold mb-6 drop-shadow-lg uppercase hover:cursor-pointer"
-          @click="page = 'category'"
-        >
-          Play
-        </button>
-      </div>
-    </section>
-
-    <!-- category page -->
-    <section class="category-page" v-show="page === 'category'">
-      <!-- code here -->
-
-      <div
-        id="app"
-        class="flex flex-col items-center min-h-screen bg-gray-100 p-4 bg-linear-to-r from-yellow-200 to-red-400"
-      >
-        <h1 class="text-4xl font-bold text-purple-800 shadow-lg mb-8">
-          Category
-        </h1>
-
-        <div class="flex space-x-1 items-center">
-          <div class="btn-back">
-            <button
-              @click="page = 'home'"
-              class="w-40 mx-6 py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
-            >
-              Back
-            </button>
-          </div>
-          <div class="btn-audio">
+        <div class="btn-audio">
             <label class="swap">
               <input type="checkbox" @click="playMusic" v-model="onMusic" />
 
@@ -369,13 +350,49 @@ const showmodal = () => {
               </p>
             </audio>
           </div>
+        <h1 class="text-6xl font-bold mb-6 drop-shadow-lg text-white">
+          Welcome to the Game!
+        </h1>
+        <p class="text-xl mb-8 opacity-90 text-white">
+          What is it? Let's take a guess!😘
+        </p>
+        <button
+          class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-green-500 disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-emerald-500 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-lg px-4 md:px-8 h-14 text-black font-bold mb-6 drop-shadow-lg uppercase hover:cursor-pointer"
+          @click="page = 'category'"
+        >
+          Play
+        </button>
+      </div>
+    </section>
+
+    <!-- category page -->
+    <section class="category-page" v-show="page === 'category'">
+      <!-- code here -->
+
+      <div
+        id="app"
+        class="flex flex-col items-center min-h-screen bg-gray-100 p-4 bg-linear-to-r from-yellow-200 to-red-400"
+      >
+        <h1 class="text-4xl font-bold text-purple-800 shadow-lg mb-8">
+          Category
+        </h1>
+
+        <div class="flex space-x-1 items-center">
+          <div class="btn-back">
+            <button
+              @click="page = 'home'"
+              class="w-40 mx-6 py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
+            >
+              Back
+            </button>
+          </div>
         </div>
 
         <div id="category-content" class="mt-8 grid grid-cols-2 gap-4 w-full">
           <div id="animals-content" class="category-item p-4">
             <h3 class="text-2xl font-bold text-gray-800 mb-4">Animals</h3>
             <img
-              src="./assets/imgs/gcategory/animal.jpg"
+              src="./assets/imgs/category/animal.jpg"
               alt="Animals"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
               @click="(category = 'animal'), gameStart(), (page = 'play')"
@@ -431,11 +448,7 @@ const showmodal = () => {
               <h1 class="w-fit mx-auto text-8xl text-green-600">
                 {{ stateAnswer === "correct" ? "Correct" : "Incorrect" }}
               </h1>
-              <p
-                v-show="stateAnswer === 'correct'"
-                class="w-fit mx-auto my-4 text-2xl text-black"
-              >
-                Bravo
+              <p v-show="stateAnswer === 'correct'" class="w-fit mx-auto my-4 text-2xl text-red-400">{{ complimentText }}
               </p>
               <p
                 v-show="stateAnswer === 'incorrect'"
@@ -466,7 +479,7 @@ const showmodal = () => {
               </button>
             </div>
             <div class="timer self-center">
-              <h1 class="text-4xl font-bold">{{ time }}</h1>
+              <h1 class="text-4xl drop-shadow-lg font-bold">{{ time }}</h1>
             </div>
             <div class="round flex-1 self-center">
               <h1
