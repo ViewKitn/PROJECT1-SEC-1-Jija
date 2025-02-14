@@ -92,20 +92,20 @@ const homeEquipmentList = [
 // variable
 const choiceList = ref([]);
 const answerList = [];
+let stateAnswer = ref("");
 let answer = ref("");
 let score = ref(0);
 let round = ref(0);
 let page = ref("home");
 let category = ref("");
-let time = ref(5);
 let modal = ref("close");
-let stateAnswer = ref("");
-let setintervalTimerId;
 let modalContent = ref("close");
+let time = ref(5);
+let setintervalTimerId;
 const musicPlayer = ref("starting");
+const onMusic = ref(false);
 
 // feature audio
-const onMusic = ref(false);
 const playMusic = () => {
   onMusic.value = !onMusic.value;
   if (onMusic.value) musicPlayer.value.play();
@@ -375,7 +375,7 @@ const showmodal = () => {
           <div id="animals-content" class="category-item p-4">
             <h3 class="text-2xl font-bold text-gray-800 mb-4">Animals</h3>
             <img
-              src="./assets/imgs/category/animal.jpg"
+              src="./assets/imgs/gcategory/animal.jpg"
               alt="Animals"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
               @click="(category = 'animal'), gameStart(), (page = 'play')"
