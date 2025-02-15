@@ -1,4 +1,24 @@
 @import "tailwindcss";
-@plugin "daisyui" 
+@plugin "daisyui";
 
+@font-face {
+    font-family: "Gluten";
+    src: url('../assets/fonts/Gluten/Gluten-VariableFont_slntwght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
+@font-face {
+    font-family: "Silkscreen";
+    src: url('../assets/fonts/Silkscreen/Silkscreen-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1 ,.show-user-score{
+    font-family: "Silkscreen";
+}
+
+p , button , h3{
+    font-family: "Gluten";
+}
