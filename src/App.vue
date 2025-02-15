@@ -318,7 +318,7 @@ const showmodal = () => {
       <!-- code here -->
       
         <div class="btn-audio absolute top-4 right-7">
-            <label class="swap">
+            <label class="swap bg-red-600 h-25 w-25 rounded-full">
               <input type="checkbox" @click="playMusic" v-model="onMusic" />
               <svg
                 class="swap-on fill-current"
