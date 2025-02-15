@@ -119,6 +119,10 @@ const playMusic = () => {
   if (onMusic.value) musicPlayer.value.play();
   else musicPlayer.value.pause();
 };
+const playClickSound = () => {
+  const audio = new Audio('./assets/audio/OnClick-1.wav');
+  audio.play();
+};
 //feature timer
 const startTimer = () => {
   setintervalTimerId = setInterval(() => {
@@ -388,14 +392,15 @@ const showmodal = () => {
           </div>
         </div>
 
-        <div id="category-content" class="mt-8 grid grid-cols-2 gap-4 w-full">
+      
+        <div id="category-content" class="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
           <div id="animals-content" class="category-item p-4">
             <h3 class="text-2xl font-bold text-gray-800 mb-4">Animals</h3>
             <img
               src="./assets/imgs/category/animal.jpg"
               alt="Animals"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
-              @click="(category = 'animal'), gameStart(), (page = 'play')"
+              @click="(category = 'animal'), gameStart(), (page = 'play'), playClickSound()"
             />
           </div>
 
@@ -405,7 +410,8 @@ const showmodal = () => {
               src="./assets/imgs/category/fruit.png"
               alt="Fruits"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
-              @click="(category = 'fruit'), gameStart(), (page = 'play')"
+              @click="(category = 'fruit'), gameStart(), (page = 'play'), playClickSound()"
+              
             />
           </div>
 
@@ -415,17 +421,16 @@ const showmodal = () => {
               src="./assets/imgs/category/equipment.jpg"
               alt="Objects"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
-              @click="(category = 'equipment'), gameStart(), (page = 'play')"
+              @click="(category = 'equipment'), gameStart(), (page = 'play'), playClickSound()"
             />
           </div>
-
           <div id="places-content" class="category-item p-4">
             <h3 class="text-2xl font-bold text-gray-800 mb-4">Countries</h3>
             <img
               src="./assets/imgs/category/country.png"
               alt="Places"
               class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
-              @click="(category = 'country'), gameStart(), (page = 'play')"
+              @click="(category = 'country'), gameStart(), (page = 'play'), playClickSound()"
             />
           </div>
         </div>
