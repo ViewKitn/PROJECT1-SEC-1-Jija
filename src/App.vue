@@ -226,7 +226,7 @@ const resetAnswer = () => {
 const getColorButton = (btnIndex) => {
   switch (btnIndex) {
     case 0:
-      return "hover:bg-purple-500";
+      return "hover:bg-pink-400";
     case 1:
       return "hover:bg-blue-500";
     case 2:
@@ -281,15 +281,15 @@ const clearGame = () => {
 
 const showtext = () => {
   if (score.value === 15) {
-    return "Excellent!!!";
+    return "Excellent🏆";
   } else if (score.value >= 12) {
-    return "Perfect!!";
+    return "Perfect🏅";
   } else if (score.value >= 9) {
-    return "Great job!";
+    return "Great job!⭐";
   } else if (score.value >= 5) {
-    return "Good";
+    return "Good👍";
   } else {
-    return "Not bad";
+    return "Not bad✨";
   }
 };
 
@@ -309,21 +309,24 @@ const showmodal = () => {
     <!-- home page -->
    
     <section
-      class="home-page h-screen flex flex-col place-items: center justify-center bg-linear-to-r from-fuchsia-400 to-blue-800"
+      class="home-page h-screen flex flex-col place-items: center justify-center bg-linear-to-r from-fuchsia-600 to-blue-800"
       v-show="page === 'home'"
     >
+    <video autoplay muted loop class="background-video-first absolute inset-0 w-full h-full object-cover mix-blend-screen">
+      <source src="./assets/video/Sequence1.webm" type="video/webm" />
+    </video>
       <!-- code here -->
-      <div class="text-center">
-        <div class="btn-audio">
+      
+        <div class="btn-audio absolute top-4 right-7">
             <label class="swap">
               <input type="checkbox" @click="playMusic" v-model="onMusic" />
               <svg
                 class="swap-on fill-current"
                 xmlns="http://www.w3.org/2000/svg"
-                width="50"
-                height="50"
+                width="70"
+                height="70"
                 viewBox="0 0 24 24"
-                style="color: black"
+                style="color: white"
               >
                 <path
                   d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 
@@ -334,10 +337,10 @@ const showmodal = () => {
               <svg
                 class="swap-off fill-current"
                 xmlns="http://www.w3.org/2000/svg"
-                width="50"
-                height="50"
+                width="70"
+                height="70"
                 viewBox="0 0 24 24"
-                style="color: black"
+                style="color: white"
               >
                 <path
                   d="M3,9H7L12,4V20L7,15H3V9M16.59,12L14,9.41L15.41,8L18,10.59L20.59,8L22,9.41L19.41,12L22,
@@ -354,14 +357,15 @@ const showmodal = () => {
               </p>
             </audio>
           </div>
-        <h1 class="text-6xl font-bold mb-6 drop-shadow-lg text-white">
+        <div class="text-center bg-black rounded-lg h-130"> 
+        <h1 class="text-8xl font-bold pt-21 mb-6 drop-shadow-lg text-white">
           Welcome to the Game!
         </h1>
-        <p class="text-xl mb-8 opacity-90 text-white">
-          What is it? Let's take a guess!😘
+        <p class=" text-3xl mb-10 opacity-90 text-white">
+          What is it? Let's take a guess !?😘
         </p>
         <button
-          class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-green-500 disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-emerald-500 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-lg px-4 md:px-8 h-14 text-black font-bold mb-6 drop-shadow-lg uppercase hover:cursor-pointer"
+          class="outline  justify-center text-center [transition:_all_.3s_ease] leading-tight bg-white hover:bg-yellow-400 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-full px-8 md:px-12 h-28 text-6xl  text-purple-500 font-bold mb-6 drop-shadow-lg uppercase hover:cursor-pointer"
           @click="page = 'category',playClickSound()"
         >
           Play
@@ -372,66 +376,69 @@ const showmodal = () => {
     <!-- category page -->
     <section class="category-page" v-show="page === 'category'">
       <!-- code here -->
-
+      
       <div
         id="app"
-        class="flex flex-col items-center min-h-screen bg-gray-100 p-4 bg-linear-to-r from-yellow-200 to-red-400"
+        class="flex flex-col items-center min-h-screen p-4 bg-linear-to-r from-fuchsia-500 to-blue-600"
       >
-        <h1 class="text-4xl font-bold text-purple-800 shadow-lg mb-8">
+        <h1 class="text-8xl font-bold text-white shadow-lg pt-15 mb-15">
           Category
         </h1>
-
-        <div class="flex space-x-1 items-center">
-          <div class="btn-back">
-            <button
-              @click="page = 'home',playClickSound()"
-              class="w-40 mx-6 py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
-            >
-              Back
-            </button>
-          </div>
-        </div>
-
-      
+        
         <div id="category-content" class="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
-          <div id="animals-content" class="category-item p-4">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Animals</h3>
+          <video autoplay muted loop
+            class="background-video-second absolute inset-0 w-full h-full object-cover mix-blend-screen"
+          >
+            <source src="./assets/video/Sequence2.webm" type="video/webm" />
+          </video>
+          <div id="animals-content" class="category-item p-4 bg-yellow-300 rounded-lg">
+            <h3 class="text-4xl font-bold text-gray-800 mb-4">Animals</h3>
             <img
               src="./assets/imgs/category/animal.jpg"
               alt="Animals"
-              class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
+              class="w-[100%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
               @click="(category = 'animal'), gameStart(), (page = 'play'), playClickSound()"
             />
           </div>
 
-          <div id="foods-content" class="category-item p-4">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Fruits</h3>
+          <div id="foods-content" class="category-item p-4  bg-green-400 rounded-lg">
+            <h3 class="text-4xl font-bold text-gray-800 mb-4">Fruits</h3>
             <img
               src="./assets/imgs/category/fruit.png"
               alt="Fruits"
-              class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
+              class="w-[100%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
               @click="(category = 'fruit'), gameStart(), (page = 'play'), playClickSound()"
               
             />
           </div>
 
-          <div id="objects-content" class="category-item p-4">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Equipments</h3>
+          <div id="objects-content" class="category-item p-4  bg-blue-300 rounded-lg">
+            <h3 class="text-4xl font-bold text-gray-800 mb-4">Equipments</h3>
             <img
               src="./assets/imgs/category/equipment.jpg"
               alt="Objects"
-              class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
+              class="w-[100%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
               @click="(category = 'equipment'), gameStart(), (page = 'play'), playClickSound()"
             />
           </div>
-          <div id="places-content" class="category-item p-4">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Countries</h3>
+          <div id="places-content" class="category-item p-4  bg-orange-400 rounded-lg">
+            <h3 class="text-4xl font-bold text-gray-800 mb-4">Countries</h3>
             <img
               src="./assets/imgs/category/country.png"
               alt="Places"
-              class="w-[95%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
+              class="w-[100%] h-100 object-cover rounded-4xl mb-4 hover:scale-110"
               @click="(category = 'country'), gameStart(), (page = 'play'), playClickSound()"
             />
+          </div>
+        </div>
+        <div class="flex space-x-1 items-center">
+          <div class="btn-back">
+            <button
+              @click="page = 'home',playClickSound()"
+              class="mt-15 px-8 md:px-12 h-28 rounded-full text-6xl text-purple-700 bg-white duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
+            >
+              Back
+            </button>
           </div>
         </div>
       </div>
@@ -441,7 +448,7 @@ const showmodal = () => {
     <section v-show="page === 'play'" class="playgame-page">
       <!-- code here -->
       <div
-        class="playgame-container w-full bg-linear-to-r from-purple-300 to-pink-600"
+        class="playgame-container w-full bg-linear-to-r from-purple-500 to-pink-600"
       >
         <!-- show-modal -->
         <div
@@ -450,21 +457,21 @@ const showmodal = () => {
         >
           <div class="modal-slide w-0 h-[30%] self-center bg-white/90 ]">
             <div v-show="modalContent === 'show'" class="modal-content">
-              <h1 class="w-fit mx-auto text-8xl text-green-600">
+              <h1 class="pt-8 w-fit mx-auto text-8xl text-green-600">
                 {{ stateAnswer === "correct" ? "Correct" : "Incorrect" }}
               </h1>
               <p v-show="stateAnswer === 'correct'" class="w-fit mx-auto my-4 text-2xl text-red-400">{{ complimentText }}
               </p>
               <p
                 v-show="stateAnswer === 'incorrect'"
-                class="w-fit mx-auto my-4 text-2xl text-black"
+                class="w-fit mx-auto my-4 text-3xl text-black"
               >
                 Answer: <span class="text-red-500">{{ answer }}</span>
               </p>
               <div class="btn-next flex justify-center">
                 <button
                   @click="nextRound(),playClickSound()"
-                  class="w-40 my-3 py-2 rounded-4xl text-2xl text-black bg-yellow-300 duration-200 ease-in hover:cursor-pointer hover:font-medium"
+                  class="h-20 w-40 my-3 py-2 rounded-4xl text-2xl text-black bg-yellow-300 duration-200 ease-in hover:scale-110"
                 >
                   Next
                 </button>
@@ -484,7 +491,7 @@ const showmodal = () => {
               </button>
             </div>
             <div class="timer self-center">
-              <h1 class="text-4xl drop-shadow-lg font-bold">{{ time }}</h1>
+              <h1 class="text-4xl text-yellow-400 mt-15 drop-shadow-lg font-bold">{{ time }}</h1>
             </div>
             <div class="round flex-1 self-center">
               <h1
@@ -494,7 +501,7 @@ const showmodal = () => {
               </h1>
             </div>
           </header>
-          <div class="img-answer my-5">
+          <div class="img-answer mt-15 my-5">
             <img
               :src="`../imgs/${category}s/${answer}.jpg`"
               :alt="`img-${answer}`"
@@ -504,14 +511,14 @@ const showmodal = () => {
           <h1 class="question my-14 text-7xl text-center font-medium">
             What is {{ category }} ?
           </h1>
-          <div class="choice-list flex justify-around mt-24">
+          <div class="choice-list flex justify-around mt-28">
             <button
               v-for="(choice, index) in choiceList"
               :key="index"
               @click="
                 stopTimer(setintervalTimerId), checkAnswer(index), showmodal(),playClickSound()
               "
-              class="w-56 h-full mx-5 py-4 rounded-4xl bg-zinc-100/70 text-4xl text-black duration-200 ease-in hover:scale-125 hover:text-white hover:cursor-pointer hover:font-medium"
+              class="w-70 h-30 mx-5 py-4 rounded-4xl bg-zinc-100/70 text-5xl text-black duration-200 ease-in hover:scale-125 hover:text-white hover:cursor-pointer hover:font-medium"
               :class="getColorButton(index)"
             >
               {{ choice }}
@@ -523,31 +530,31 @@ const showmodal = () => {
 
     <!-- score page -->
     <section
-      class="score-page h-screen bg-linear-to-r from-blue-500 to-pink-500 flex justify-center items-center"
+      class="score-page h-screen bg-linear-to-r from-fuchsia-600 to-blue-800 flex justify-center items-center border-30 rounded-lg"
       v-show="page === 'score'"
     >
       <div class="score-container text-4xl text-center">
         <h1 class="text-white text-9xl">{{ showtext() }}</h1>
         <h1
-          class="py-16 text-blue-700 font-bold [font-family:'Lucida_Console',monospace]"
+          class="py-20 text-yellow-300 text-5xl font-bold [font-family:'Lucida_Console',monospace]"
         >
           YOUR SCORE
         </h1>
-        <div class="show-user-score my">
-          <span class="rounded-3xl px-50 py-8 bg-gray-100 text-black"
+        <div class="show-user-score">
+          <span class="rounded-full text-5xl px-30 py-8 bg-gray-100 text-black"
             >{{ score }} / 15</span
           >
         </div>
-        <div class="py-40 flex justify-center gap-30">
+        <div class="mt-35 flex justify-center gap-30">
           <button
             @click="clearGame(), (page = 'home'),playClickSound()"
-            class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] text-black disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
+            class="outline  justify-center text-center [transition:_all_.3s_ease] leading-tight bg-white hover:bg-yellow-400 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-full px-8 md:px-12 h-25 text-6xl  text-purple-500 mb-6 drop-shadow-lg uppercase hover:cursor-pointer"
           >
             HOME
           </button>
           <button
             @click="clearGame(), gameStart(), (page = 'play'),playClickSound()"
-            class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] text-black disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
+            class="outline justify-center text-center [transition:_all_.3s_ease] leading-tight bg-white hover:bg-green-400 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-full px-8 md:px-12 h-25 text-6xl  text-purple-500 mb-6 drop-shadow-lg uppercase hover:cursor-pointer"
           >
             PLAY AGAIN
           </button>
@@ -555,9 +562,9 @@ const showmodal = () => {
             autoplay
             muted
             loop
-            class="background-video absolute inset-0 w-full h-full object-cover mix-blend-screen"
+            class="background-video-last absolute inset-0 w-full h-full object-cover mix-blend-screen"
           >
-            <source src="./assets/video/Sequence01.webm" type="video/webm" />
+            <source src="./assets/video/Sequence4.webm" type="video/webm" />
           </video>
         </div>
       </div>
@@ -566,7 +573,9 @@ const showmodal = () => {
 </template>
 
 <style scoped>
-.background-video {
+.background-video-first ,
+.background-video-second ,
+.background-video-last{
   pointer-events: none;
 }
 .modal-slide {
