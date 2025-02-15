@@ -120,7 +120,7 @@ const playMusic = () => {
   else musicPlayer.value.pause();
 };
 const playClickSound = () => {
-  const audio = new Audio('./assets/audio/OnClick-1.wav');
+  const audio = new Audio('../Audio/OnClick-1.wav');
   audio.play();
 };
 //feature timer
@@ -307,6 +307,7 @@ const showmodal = () => {
 <template>
   <div class="game-container">
     <!-- home page -->
+   
     <section
       class="home-page h-screen flex flex-col place-items: center justify-center bg-linear-to-r from-fuchsia-400 to-blue-800"
       v-show="page === 'home'"
@@ -316,7 +317,6 @@ const showmodal = () => {
         <div class="btn-audio">
             <label class="swap">
               <input type="checkbox" @click="playMusic" v-model="onMusic" />
-
               <svg
                 class="swap-on fill-current"
                 xmlns="http://www.w3.org/2000/svg"
@@ -346,10 +346,10 @@ const showmodal = () => {
               </svg>
             </label>
             <audio controls class="hidden" ref="musicPlayer" loop>
-              <source src="./assets/audio/GameMusic.mp3" type="audio/mp3" />
+              <source src="../Audio/GameMusic.mp3" type="audio/mp3" />
               <p>
                 Your browser doesn't support this audio file. Here is a
-                <a href="./assets/audio/GameMusic.mp3">link to the audio</a>
+                <a href="../Audio/GameMusic.mp3">link to the audio</a>
                 instead.
               </p>
             </audio>
@@ -362,7 +362,7 @@ const showmodal = () => {
         </p>
         <button
           class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] disabled:bg-green-500 disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-emerald-500 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-lg px-4 md:px-8 h-14 text-black font-bold mb-6 drop-shadow-lg uppercase hover:cursor-pointer"
-          @click="page = 'category'"
+          @click="page = 'category',playClickSound()"
         >
           Play
         </button>
@@ -384,7 +384,7 @@ const showmodal = () => {
         <div class="flex space-x-1 items-center">
           <div class="btn-back">
             <button
-              @click="page = 'home'"
+              @click="page = 'home',playClickSound()"
               class="w-40 mx-6 py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
             >
               Back
@@ -463,7 +463,7 @@ const showmodal = () => {
               </p>
               <div class="btn-next flex justify-center">
                 <button
-                  @click="nextRound()"
+                  @click="nextRound(),playClickSound()"
                   class="w-40 my-3 py-2 rounded-4xl text-2xl text-black bg-yellow-300 duration-200 ease-in hover:cursor-pointer hover:font-medium"
                 >
                   Next
@@ -477,7 +477,7 @@ const showmodal = () => {
           <header class="flex h-24">
             <div class="btn-back flex-1 self-center">
               <button
-                @click="clearGame(), (page = 'category')"
+                @click="clearGame(), (page = 'category'),playClickSound()"
                 class="w-40 mx-6 py-3 bg- rounded-4xl text-2xl text-black bg-zinc-100/70 duration-200 ease-in hover:cursor-pointer hover:bg-red-500 hover:text-white hover:font-medium"
               >
                 Back
@@ -509,7 +509,7 @@ const showmodal = () => {
               v-for="(choice, index) in choiceList"
               :key="index"
               @click="
-                stopTimer(setintervalTimerId), checkAnswer(index), showmodal()
+                stopTimer(setintervalTimerId), checkAnswer(index), showmodal(),playClickSound()
               "
               class="w-56 h-full mx-5 py-4 rounded-4xl bg-zinc-100/70 text-4xl text-black duration-200 ease-in hover:scale-125 hover:text-white hover:cursor-pointer hover:font-medium"
               :class="getColorButton(index)"
@@ -540,13 +540,13 @@ const showmodal = () => {
         </div>
         <div class="py-40 flex justify-center gap-30">
           <button
-            @click="clearGame(), (page = 'home')"
+            @click="clearGame(), (page = 'home'),playClickSound()"
             class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] text-black disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
           >
             HOME
           </button>
           <button
-            @click="clearGame(), gameStart(), (page = 'play')"
+            @click="clearGame(), gameStart(), (page = 'play'),playClickSound()"
             class="outline solid-1-black btn justify-center text-center [transition:_all_.3s_ease] text-black disabled:bg-[#B4BBC3A6] disabled:text-white no-underline leading-tight btn-outline-black bg-white text-pink hover:bg-[#0158C9] hover:text-white hover:ring-white hover:ring-2 transition-all w-auto rounded-lg px-4 md:px-8 h-14"
           >
             PLAY AGAIN
