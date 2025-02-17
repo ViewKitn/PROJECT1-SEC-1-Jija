@@ -114,7 +114,7 @@ const playMusic = () => {
   else musicPlayer.value.pause();
 };
 const playClickSound = () => {
-  const audio = new Audio("../audio/OnClick-1.wav");
+  const audio = new Audio("/audio/OnClick-1.wav");
   audio.play();
 };
 //feature timer
