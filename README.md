@@ -24,7 +24,7 @@
     <td>66130500050</td>
     <td>Narisara Jampathong</td>
     <td>page: category-page<br>
-        feature: จับเวลาและกำหนดเวลาในการเล่นเกมแต่ละรูป,  function เสียงเพลงขณะเล่นเกม , function สุ่มคำชมเชยเมื่อตอบถูก
+        feature: จับเวลาและกำหนดเวลาในการเล่นเกมแต่ละรูป,  function เสียงเพลงขณะเล่นเกมและเสียงคลิกปุ่ม , function สุ่มคำชมเชยเมื่อตอบถูก
     </td>
     <td>%</td>
   </tr>
@@ -48,8 +48,4 @@
     <td>%</td>
   </tr>
 
-   
-
-  
-
- 
+  <a href="https://github.com/user-attachments/files/18827254/default.pdf">คู่มือการใช้งานแอพลิเคชั่น</a>
