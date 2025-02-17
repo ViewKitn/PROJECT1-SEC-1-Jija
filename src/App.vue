@@ -114,7 +114,7 @@ const playMusic = () => {
   else musicPlayer.value.pause();
 };
 const playClickSound = () => {
-  const audio = new Audio("/audio/OnClick-1.wav");
+  const audio = new Audio("/audios/OnClick-1.wav");
   audio.play();
 };
 //feature timer
@@ -346,10 +346,10 @@ const showmodal = () => {
           </svg>
         </label>
         <audio controls class="hidden" ref="musicPlayer" loop>
-          <source src="/audio/GameMusic.mp3" type="audio/mp3" />
+          <source src="/audios/GameMusic.mp3" type="audio/mp3" />
           <p>
             Your browser doesn't support this audio file. Here is a
-            <a href="/audio/GameMusic.mp3">link to the audio</a>
+            <a href="/audios/GameMusic.mp3">link to the audio</a>
             instead.
           </p>
         </audio>
