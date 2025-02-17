@@ -346,10 +346,10 @@ const showmodal = () => {
           </svg>
         </label>
         <audio controls class="hidden" ref="musicPlayer" loop>
-          <source src="../audio/GameMusic.mp3" type="audio/mp3" />
+          <source src="/audio/GameMusic.mp3" type="audio/mp3" />
           <p>
             Your browser doesn't support this audio file. Here is a
-            <a href="../audio/GameMusic.mp3">link to the audio</a>
+            <a href="/audio/GameMusic.mp3">link to the audio</a>
             instead.
           </p>
         </audio>
@@ -536,7 +536,7 @@ const showmodal = () => {
           </header>
           <div class="img-answer mt-15 my-5">
             <img
-              :src="`../imgs/${category}s/${answer}.jpg`"
+              :src="`/imgs/${category}s/${answer}.jpg`"
               :alt="`img-${answer}`"
               class="w-lg h-80 mx-auto object-cover border-[1px] hover:scale-110 duration-150 hover:cursor-zoom-in"
             />
