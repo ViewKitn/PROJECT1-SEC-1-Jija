@@ -47,8 +47,5 @@
     </td>
     <td>%</td>
   </tr>
-  
 
-
- คู่มือการใช้งาน
- https://kmuttsit-my.sharepoint.com/:b:/g/personal/66130500050_ad_sit_kmutt_ac_th/Eb9LdTG8-YtOvfJXaIQbpuABK_jkDKgy1uczquxlv4jYSg
+  <a href="https://github.com/user-attachments/files/18827254/default.pdf">คู่มือการใช้งานแอพลิเคชั่น</a>
