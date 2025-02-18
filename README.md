@@ -75,12 +75,15 @@
                <li>addScore [เพิ่มค่าคะแนนให้ user ครั้งละ 1 คะแนน]</li>
                <li>resetScore [เซ็ตค่าคะแนนให้เป็น 0]</li>
           </ul>
-     </li>     
+     </li>
      <li><b>feature round</b>
           <ul>
                <li>increaseRound [เพิ่มรอบในการเล่น]</li>
                <li>resetRound [รีเซ็ตรอบในการเล่น]</li>
           </ul>
+     </li>
+     <li><b>feature trackRoundToScorePage</b>
+       <ul>watch [เมื่อ user เล่นครบ 15 รอบจะทำการเปลี่ยนไปที่หน้า score page]</ul>
      </li>
      <li><b>feature choice</b>
           <ul>
@@ -91,7 +94,7 @@
     <li><b>feature answer</b>
           <ul>
                <li>showCompliment [สุ่มคำชมมาแสดงใน หน้า showModel เมื่อ user ตอบถูก]</li>
-               <li>randomAnswer [สุ่มคำตอบมาแสดงให้ตรงกับคำถามตามข้อนั้นๆ]</li>
+               <li>randomAnswer [สุ่มคำตอบของแต่ละข้อ]</li>
                <li>checkAnswer [ตรวจคำตอบเมื่อถูกจะแสดง correct ผิดแสดง incorrect]</li>
                <li>resetAnswerList [รีเซ็ตรายการคำตอบ]</li>
                <li>resetAnswer [รีเซ็ตคำตอบ]</li>
