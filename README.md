@@ -69,20 +69,13 @@
                <li>startTimer [เริ่มจับเวลาโดยเวลาจะลดลงจาก 5 วินาทีไปเรื่อยๆ]</li>
                <li>stopTimer [หยุดเวลและเซ็ตเวลากลับไปเป็น 5 วินาที]</li>
           </ul>
-      </li>
+     </li>
      <li><b>feature score</b>
           <ul>
                <li>addScore [เพิ่มค่าคะแนนให้ user ครั้งละ 1 คะแนน]</li>
-               <li>resetScor [เซ็ตค่าคะแนนให้เป็น 0]e</li>
+               <li>resetScore [เซ็ตค่าคะแนนให้เป็น 0]</li>
           </ul>
-     </li>
-    
-     <li><b>feature trackRoundToScorePage</b><ul>
-               <li>watch [เมื่อ user เล่นครบ 15 ข้อจะทำการเปลี่ยนไปที่หน้า score page]</li>
-          </ul>
-     </li>
-
-     
+     </li>     
      <li><b>feature round</b>
           <ul>
                <li>increaseRound [เพิ่มรอบในการเล่น]</li>
@@ -98,7 +91,7 @@
     <li><b>feature answer</b>
           <ul>
                <li>showCompliment [สุ่มคำชมมาแสดงใน หน้า showModel เมื่อ user ตอบถูก]</li>
-               <li>randomAnswer [สุ่มคำตอบของแต่ละข้อ]</li>
+               <li>randomAnswer [สุ่มคำตอบมาแสดงให้ตรงกับคำถามตามข้อนั้นๆ]</li>
                <li>checkAnswer [ตรวจคำตอบเมื่อถูกจะแสดง correct ผิดแสดง incorrect]</li>
                <li>resetAnswerList [รีเซ็ตรายการคำตอบ]</li>
                <li>resetAnswer [รีเซ็ตคำตอบ]</li>
