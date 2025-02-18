@@ -76,7 +76,13 @@
                <li>resetScor [เซ็ตค่าคะแนนให้เป็น 0]e</li>
           </ul>
      </li>
-     <li><b>feature trackRoundToScorePage [เก็บค่าคะแนนทั้งหมดที่ user ทำได้ส่งไปแสดงผลหน้า score page]</b></li>
+    
+     <li><b>feature trackRoundToScorePage</b><ul>
+               <li>watch [เมื่อ user เล่นครบ 15 ข้อจะทำการเปลี่ยนไปที่หน้า score page]</li>
+          </ul>
+     </li>
+
+     
      <li><b>feature round</b>
           <ul>
                <li>increaseRound [เพิ่มรอบในการเล่น]</li>
@@ -92,7 +98,7 @@
     <li><b>feature answer</b>
           <ul>
                <li>showCompliment [สุ่มคำชมมาแสดงใน หน้า showModel เมื่อ user ตอบถูก]</li>
-               <li>randomAnswer [สุ่มคำตอบมาแสดงให้ตรงกับคำถามตามข้อนั้นๆ]</li>
+               <li>randomAnswer [สุ่มคำตอบของแต่ละข้อ]</li>
                <li>checkAnswer [ตรวจคำตอบเมื่อถูกจะแสดง correct ผิดแสดง incorrect]</li>
                <li>resetAnswerList [รีเซ็ตรายการคำตอบ]</li>
                <li>resetAnswer [รีเซ็ตคำตอบ]</li>
