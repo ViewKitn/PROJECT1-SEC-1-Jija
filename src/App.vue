@@ -202,8 +202,7 @@ const checkAnswer = (userSelect) => {
   if (answer.value === choiceList.value[userSelect]) {
     addScore();
     stateAnswer.value = "correct";
-    const compliment = showCompliment();
-    console.log(compliment);
+    showCompliment();
   } else {
     stateAnswer.value = "incorrect";
   }
@@ -485,8 +484,11 @@ const showmodal = () => {
         >
           <div class="modal-slide w-0 h-[30%] self-center bg-white/90 ]">
             <div v-show="modalContent === 'show'" class="modal-content">
-              <h1 class="pt-8 w-fit mx-auto text-8xl text-green-600">
-                {{ stateAnswer === "correct" ? "Correct" : "Incorrect" }}
+              <h1 v-show="stateAnswer === 'correct'" class="pt-8 w-fit mx-auto text-8xl text-green-600">
+                Correct
+              </h1>
+              <h1 v-show="stateAnswer === 'incorrect'" class="pt-8 w-fit mx-auto text-8xl text-red-600">
+                Incorrect
               </h1>
               <p
                 v-show="stateAnswer === 'correct'"
