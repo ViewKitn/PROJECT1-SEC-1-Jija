@@ -20,7 +20,7 @@
     <td>page: main-page<br>
         feature: นับคะแนน, รวมคะแนน, watch ( ทำการ tracking round เพื่อจะที่ทำการเปลี่ยนค่า page เป็น score ใช้ในการ show score page )
     </td>
-    <td>%</td>
+    <td>23%</td>
   </tr>
   
   <tr>
@@ -29,7 +29,7 @@
     <td>page: category-page<br>
         feature: จับเวลาและกำหนดเวลาในการเล่นเกมแต่ละรูป,  function เสียงเพลงขณะเล่นเกมและเสียงคลิกปุ่ม , function สุ่มคำชมเชยเมื่อตอบถูก
     </td>
-    <td>%</td>
+    <td>23%</td>
   </tr>
 
   <tr>
@@ -38,7 +38,7 @@
     <td>page: playgame-page<br>
         feature: สุ่มคำตอบ, กับสุ่มช้อย, เช็คคำตอบเมื่อ user กดเลือกอันไหน
     </td>
-    <td>%</td>
+    <td>31%</td>
   </tr>
 
   <tr>
@@ -48,7 +48,7 @@
         feature: ระบบจัดการ page(เมื่อกดปุ่ม play, back, home, play again จะสลับเปลี่ยน page เป็นหน้าใหม่ขึ้นมา), showtext (แสดงคะแนนเมื่อเข้าเงื่อนไขต่างๆ เช่น เมื่อได้ 12 คะแนนขึ้นไปจะแสดงข้อความ     
         Perfect), showModal / ModalContent (จะแสดงข้อความ correct / incorrect) , ปรับแต่ง UI all page เช่น พื้นหลังเป็นวิดีโอ
     </td>
-    <td>%</td>
+    <td>23%</td>
   </tr>
 </table>
 
