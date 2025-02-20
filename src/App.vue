@@ -101,7 +101,7 @@ let page = ref("home");
 let category = ref("");
 let modal = ref("close");
 let modalContent = ref("close");
-let time = ref(5);
+let time = ref(10);
 let setintervalTimerId;
 const musicPlayer = ref("starting");
 const onMusic = ref(false);
@@ -124,13 +124,13 @@ const startTimer = () => {
     if (time.value === 0) {
       stateAnswer.value = "incorrect";
       showmodal();
-      stopTimer(setintervalTimerId);
+      stopTimer();
     }
   }, 1000);
 };
-const stopTimer = (timerId) => {
-  clearInterval(timerId);
-  time.value = 5;
+const stopTimer = () => {
+  clearInterval(setintervalTimerId);
+  time.value = 10;
 };
 
 // feature score
@@ -188,14 +188,9 @@ const showCompliment = () => {
 };
 
 const randomAnswer = () => {
-  while (true) {
-    const index = Math.floor(Math.random() * choiceList.value.length);
-    answer.value = choiceList.value[index];
-    if (!answerList.includes(answer.value)) {
-      answerList.push(answer.value);
-      break;
-    }
-  }
+  const index = Math.floor(Math.random() * choiceList.value.length);
+  answer.value = choiceList.value[index];
+  answerList.push(answer.value);
 };
 
 const checkAnswer = (userSelect) => {
@@ -265,7 +260,7 @@ const nextRound = () => {
 };
 
 const clearGame = () => {
-  stopTimer(setintervalTimerId);
+  stopTimer();
   resetScore();
   resetChoiceList();
   resetAnswerList();
@@ -484,10 +479,16 @@ const showmodal = () => {
         >
           <div class="modal-slide w-0 h-[30%] self-center bg-white/90 ]">
             <div v-show="modalContent === 'show'" class="modal-content">
-              <h1 v-show="stateAnswer === 'correct'" class="pt-8 w-fit mx-auto text-8xl text-green-600">
+              <h1
+                v-show="stateAnswer === 'correct'"
+                class="pt-8 w-fit mx-auto text-8xl text-green-600"
+              >
                 Correct
               </h1>
-              <h1 v-show="stateAnswer === 'incorrect'" class="pt-8 w-fit mx-auto text-8xl text-red-600">
+              <h1
+                v-show="stateAnswer === 'incorrect'"
+                class="pt-8 w-fit mx-auto text-8xl text-red-600"
+              >
                 Incorrect
               </h1>
               <p
@@ -524,14 +525,12 @@ const showmodal = () => {
               </button>
             </div>
             <div class="timer self-center">
-              <h1 class="text-4xl text-yellow-400 drop-shadow-lg font-bold">
+              <h1 class="text-7xl text-yellow-400 drop-shadow-lg font-bold">
                 {{ time }}
               </h1>
             </div>
             <div class="round flex-1 self-center">
-              <h1
-                class="h-full mx-7 text-4xl text-end drop-shadow-lg font-bold"
-              >
+              <h1 class="h-full mx-7 text-4xl text-end drop-shadow-lg font-bold text-white">
                 {{ round }} / 15
               </h1>
             </div>
@@ -543,15 +542,15 @@ const showmodal = () => {
               class="w-lg h-80 mx-auto object-cover border-[1px] hover:scale-110 duration-150 hover:cursor-zoom-in"
             />
           </div>
-          <h1 class="question my-14 text-7xl text-center font-medium">
-            What is {{ category }} ?
+          <h1 class="question my-14 text-7xl text-center  text-white font-bold">
+            What {{ category }} is it ?
           </h1>
           <div class="choice-list flex justify-around mt-28">
             <button
               v-for="(choice, index) in choiceList"
               :key="index"
               @click="
-                stopTimer(setintervalTimerId),
+                stopTimer(),
                   checkAnswer(index),
                   showmodal(),
                   playClickSound()
@@ -608,7 +607,6 @@ const showmodal = () => {
     </section>
   </div>
 </template>
-
 
 <style scoped>
 .background-video-first,
