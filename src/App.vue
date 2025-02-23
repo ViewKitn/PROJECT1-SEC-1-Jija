@@ -117,6 +117,19 @@ const playClickSound = () => {
   const audio = new Audio("/audios/OnClick-1.wav");
   audio.play();
 };
+const playCorrectSound = () => {
+  const audio = new Audio("/audios/correct.mp3");
+  audio.play();
+};
+const playWrongsSound = () => {
+  const audio = new Audio("/audios/wrongs.mp3");
+  audio.play();
+};
+const playCongratsSound = () => {
+  const audio = new Audio("/audios/congratulation.mp3");
+  audio.play();
+};
+
 //feature timer
 const startTimer = () => {
   setintervalTimerId = setInterval(() => {
@@ -146,6 +159,7 @@ watch(round, () => {
   if (round.value >= 16) {
     page.value = "score";
     stopTimer(setintervalTimerId);
+    playCongratsSound();
   }
 });
 
@@ -198,8 +212,10 @@ const checkAnswer = (userSelect) => {
     addScore();
     stateAnswer.value = "correct";
     showCompliment();
+    playCorrectSound();
   } else {
     stateAnswer.value = "incorrect";
+    playWrongsSound();
   }
 };
 
