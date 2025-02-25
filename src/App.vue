@@ -106,6 +106,8 @@ let setintervalTimerId;
 const musicPlayer = ref("starting");
 const onMusic = ref(false);
 let complimentText = ref("");
+let userAnswer = ref([]);
+let resultPopupContent = ref("close");
 
 // feature audio
 const playMusic = () => {
@@ -137,6 +139,7 @@ const startTimer = () => {
     if (time.value === 0) {
       stateAnswer.value = "incorrect";
       showmodal();
+      storeAnswer(null, false);
       stopTimer();
     }
   }, 1000);
@@ -208,7 +211,11 @@ const randomAnswer = () => {
 };
 
 const checkAnswer = (userSelect) => {
-  if (answer.value === choiceList.value[userSelect]) {
+  const selectedAnswer = choiceList.value[userSelect];
+  const isCorrect = answer.value === selectedAnswer;
+  storeAnswer(selectedAnswer, isCorrect);
+
+  if (isCorrect) {
     addScore();
     stateAnswer.value = "correct";
     showCompliment();
@@ -216,6 +223,22 @@ const checkAnswer = (userSelect) => {
   } else {
     stateAnswer.value = "incorrect";
     playWrongsSound();
+  }
+};
+
+const storeAnswer = (selectedAnswer, isCorrect) => {
+  if (selectedAnswer === null) {
+    userAnswer.value.push({
+      answer: answer.value,
+      selected: "-",
+      isCorrect,
+    });
+  } else {
+    userAnswer.value.push({
+      answer: answer.value,
+      selected: selectedAnswer,
+      isCorrect,
+    });
   }
 };
 
@@ -282,6 +305,7 @@ const clearGame = () => {
   resetAnswerList();
   resetAnswer();
   resetRound();
+  userAnswer.value = [];
 };
 
 const showtext = () => {
@@ -305,6 +329,14 @@ const showmodal = () => {
   } else {
     modal.value = "close";
     modalContent.value = "close";
+  }
+};
+
+const showresultPopup = () => {
+  if (resultPopupContent.value !== "show") {
+    resultPopupContent.value = "show";
+  } else {
+    resultPopupContent.value = "close";
   }
 };
 </script>
@@ -493,7 +525,7 @@ const showmodal = () => {
           v-show="modal === 'show'"
           class="show-modal w-full h-screen flex justify-center fixed z-10 bg-black/50"
         >
-          <div class="modal-slide w-0 h-[30%] self-center bg-white/90 ]">
+          <div class="modal-slide w-0 h-[30%] self-center bg-white/90">
             <div v-show="modalContent === 'show'" class="modal-content">
               <h1
                 v-show="stateAnswer === 'correct'"
@@ -546,7 +578,9 @@ const showmodal = () => {
               </h1>
             </div>
             <div class="round flex-1 self-center">
-              <h1 class="h-full mx-7 text-4xl text-end drop-shadow-lg font-bold text-white">
+              <h1
+                class="h-full mx-7 text-4xl text-end drop-shadow-lg font-bold text-white"
+              >
                 {{ round }} / 15
               </h1>
             </div>
@@ -558,7 +592,7 @@ const showmodal = () => {
               class="w-lg h-80 mx-auto object-cover border-[1px] hover:scale-110 duration-150 hover:cursor-zoom-in"
             />
           </div>
-          <h1 class="question my-14 text-7xl text-center  text-white font-bold">
+          <h1 class="question my-14 text-7xl text-center text-white font-bold">
             What {{ category }} is it ?
           </h1>
           <div class="choice-list flex justify-around mt-28">
@@ -566,10 +600,7 @@ const showmodal = () => {
               v-for="(choice, index) in choiceList"
               :key="index"
               @click="
-                stopTimer(),
-                  checkAnswer(index),
-                  showmodal(),
-                  playClickSound()
+                stopTimer(), checkAnswer(index), showmodal(), playClickSound()
               "
               class="w-70 h-30 mx-5 py-4 rounded-4xl bg-zinc-100/70 text-5xl text-black duration-200 ease-in hover:scale-125 hover:text-white hover:cursor-pointer hover:font-medium"
               :class="getColorButton(index)"
@@ -585,6 +616,14 @@ const showmodal = () => {
       class="score-page h-screen bg-linear-to-r from-fuchsia-600 to-blue-800 flex justify-center items-center border-30 rounded-lg"
       v-show="page === 'score'"
     >
+      <div class="absolute top-15 left-15">
+        <button
+          @click="clearGame(), (page = 'home'), playClickSound()"
+          class="p-5 outline justify-center [transition:_all_.3s_ease] leading-tight bg-white hover:bg-yellow-400 hover:text-white hover:ring-white hover:ring-3 transition-all rounded-full text-purple-500 drop-shadow-lg uppercase hover:cursor-pointer"
+        >
+          <img src="/src/assets/iconhome.svg" alt="iconhome" class="h-20" />
+        </button>
+      </div>
       <div class="score-container text-4xl text-center">
         <h1 class="text-white text-9xl">{{ showtext() }}</h1>
         <h1
@@ -597,12 +636,13 @@ const showmodal = () => {
             >{{ score }} / 15</span
           >
         </div>
+
         <div class="mt-35 flex justify-center gap-30">
           <button
-            @click="clearGame(), (page = 'home'), playClickSound()"
-            class="outline justify-center text-center [transition:_all_.3s_ease] leading-tight bg-white hover:bg-yellow-400 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-full px-8 md:px-12 h-25 text-6xl text-purple-500 mb-6 drop-shadow-lg uppercase hover:cursor-pointer"
+            @click="showresultPopup(), playClickSound()"
+            class="outline justify-center text-center [transition:_all_.3s_ease] leading-tight bg-white hover:bg-orange-400 hover:text-white hover:ring-white hover:ring-3 transition-all w-auto rounded-full px-8 md:px-12 h-25 text-6xl text-purple-500 mb-6 drop-shadow-lg uppercase hover:cursor-pointer"
           >
-            HOME
+            SHOW RESULT
           </button>
           <button
             @click="clearGame(), gameStart(), (page = 'play'), playClickSound()"
@@ -610,16 +650,53 @@ const showmodal = () => {
           >
             PLAY AGAIN
           </button>
-          <video
-            autoplay
-            muted
-            loop
-            class="background-video-last absolute inset-0 w-full h-full object-cover mix-blend-screen"
-          >
-            <source src="./assets/video/Sequence4.webm" type="video/webm" />
-          </video>
         </div>
       </div>
+      <div class="justify-right">
+        <div
+          v-if="resultPopupContent === 'show'"
+          class="user-answers text-purple-600 mx-30 bg-white/90 rounded-lg p-6 pl-15 pr-15 max-w-4xl shadow-lg"
+        >
+          <h2 class="text-5xl mb-6 text-center font-bold">Your Answered</h2>
+          <table class="w-full border-collapse border border-gray-300 text-2xl">
+            <thead>
+              <tr class="bg-purple-200 text-purple-800">
+                <th class="border border-gray-300 px-4 py-2">Question</th>
+                <th class="border border-gray-300 px-4 py-2">Your Answer</th>
+                <th class="border border-gray-300 px-4 py-2">Correct Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="(ans, index) in userAnswer"
+                :key="index"
+                :class="ans.isCorrect ? 'bg-green-100' : 'bg-red-100'"
+              >
+                <td class="border border-gray-300 px-4 py-2 text-center">
+                  {{ index + 1 }}
+                </td>
+                <td
+                  class="border border-gray-300 px-4 py-2 text-center font-bold"
+                  :class="ans.isCorrect ? 'text-green-600' : 'text-red-600'"
+                >
+                  {{ ans.selected }}
+                </td>
+                <td class="border border-gray-300 px-4 py-2 text-center">
+                  {{ ans.answer }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <video
+        autoplay
+        muted
+        loop
+        class="background-video-last absolute inset-0 w-full h-full object-cover mix-blend-screen"
+      >
+        <source src="./assets/video/Sequence4.webm" type="video/webm" />
+      </video>
     </section>
   </div>
 </template>
