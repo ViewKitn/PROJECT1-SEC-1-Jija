@@ -108,6 +108,12 @@ const onMusic = ref(false);
 let complimentText = ref("");
 let userAnswer = ref([]);
 let resultPopupContent = ref("close");
+const highScores = ref({
+  animal: 0,
+  fruit: 0,
+  country: 0,
+  equipment: 0,
+});
 
 // feature audio
 const playMusic = () => {
@@ -156,6 +162,22 @@ const addScore = () => {
 const resetScore = () => {
   score.value = 0;
 };
+//feature Save HighestScore
+const saveHighScore = () => {
+  if (category.value && score.value > highScores.value[category.value]) {
+    highScores.value[category.value] = score.value;
+    localStorage.setItem("highScores", JSON.stringify(highScores.value));
+  }
+};
+
+//feature Load HighestScore
+const loadHighScores = () => {
+  const storedScores = localStorage.getItem("highScores");
+  if (storedScores) {
+    highScores.value = JSON.parse(storedScores);
+  }
+};
+loadHighScores();
 
 //feature trackRoundToScorePage
 watch(round, () => {
@@ -300,6 +322,7 @@ const nextRound = () => {
 
 const clearGame = () => {
   stopTimer();
+  saveHighScore();
   resetScore();
   resetChoiceList();
   resetAnswerList();
@@ -577,10 +600,13 @@ const showresultPopup = () => {
                 {{ time }}
               </h1>
             </div>
-            <div class="round flex-1 self-center">
+            <div class="round flex-1 items-center mx-7 mt-6">
               <h1
-                class="h-full mx-7 text-4xl text-end drop-shadow-lg font-bold text-white"
+                class="h-full mx-7 text-4xl text-end drop-shadow-lg font-bold text-white gap-0.5"
               >
+                <p class="text-2xl text-yellow-300 font-bold">
+                  High Score: {{ highScores[category] }}
+                </p>
                 {{ round }} / 15
               </h1>
             </div>
@@ -627,7 +653,12 @@ const showresultPopup = () => {
       <div class="score-container text-4xl text-center">
         <h1 class="text-white text-9xl">{{ showtext() }}</h1>
         <h1
-          class="py-20 text-yellow-300 text-5xl font-bold [font-family:'Lucida_Console',monospace]"
+          class="pt-6 text-red-400 text-5xl font-bold [font-family:'Lucida_Console',monospace]"
+        >
+          HIGHEST SCORE: {{ highScores[category] }}
+        </h1>
+        <h1
+          class="pb-20 pt-10 text-yellow-300 text-5xl font-bold [font-family:'Lucida_Console',monospace]"
         >
           YOUR SCORE
         </h1>
